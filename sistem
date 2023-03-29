@@ -1,0 +1,15 @@
+Admin
+- Kelola Barang
+- Kelola Customer
+- Kelola Review
+- Laporan
+- Kelola Voucher Diskon (Pelanggan Loyal, Lama, & Baru)
+- Kelola Transaksi
+
+Customer
+- Melakukan Transaksi
+- Mendapatkan diskon berdasarkan jenis customer
+- dapat melakukan review setelah berhasil melakukan transaksi
+
+Pemilik
+- Melihat Laporan
