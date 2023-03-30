@@ -33,6 +33,13 @@ $routes->get('/', 'Home::index');
 
 $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], static function ($routes) {
     $routes->get('/', 'AdmController::index');
+    $routes->get('Settings', 'InformasiToko::index');
+    $routes->get('Pembeli', 'Pembeli::index');
+    $routes->post('Settings', 'InformasiToko::update');
+    $routes->resource('Corousel');
+    $routes->resource('KategoriItem');
+    $routes->resource('Item');
+    $routes->resource('Voucher');
 });
 
 $routes->group('PembeliPanel', ['namespace' => 'App\Controllers'], static function ($routes) {
