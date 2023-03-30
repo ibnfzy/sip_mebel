@@ -2,6 +2,9 @@
 
 namespace Config;
 
+use App\Filters\AdminAuth;
+use App\Filters\OwnerAuth;
+use App\Filters\PembeliAuth;
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Filters\CSRF;
 use CodeIgniter\Filters\DebugToolbar;
@@ -21,6 +24,9 @@ class Filters extends BaseConfig
         'honeypot'      => Honeypot::class,
         'invalidchars'  => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
+        'adminauth'     => AdminAuth::class,
+        'ownerauth'     => OwnerAuth::class,
+        'pembeliauth'   => PembeliAuth::class,
     ];
 
     /**
@@ -60,5 +66,9 @@ class Filters extends BaseConfig
      * Example:
      * 'isLoggedIn' => ['before' => ['account/*', 'profiles/*']]
      */
-    public array $filters = [];
+    public array $filters = [
+        'adminauth' => ['before' => ['AdmPanel/*', 'AdmPanel']],
+        'ownerauth' => ['before' => ['OwnerPanel/*', 'OwnerPanel']],
+        'pembeliauth' => ['before' => ['PembeliPanel/*', 'PembeliPanel']],
+    ];
 }

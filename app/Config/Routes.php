@@ -50,6 +50,19 @@ $routes->group('OwnerPanel', ['namespace' => 'App\Controllers'], static function
     $routes->get('/', 'OwnerController::index');
 });
 
+$routes->group('Auth', ['namespace' => 'App\Controllers'], static function ($routes) {
+    $routes->get('Admin', 'AdminLogin::index');
+    $routes->post('Admin', 'AdminLogin::auth');
+    $routes->get('Admin/Destroy', 'AdminLogin::logout');
+    $routes->get('Owner', 'OwnerLogin::index');
+    $routes->post('Owner', 'OwnerLogin::auth');
+    $routes->get('Owner/Destroy', 'OwnerLogin::logout');
+    $routes->get('Pembeli', 'PembeliLogin::index');
+    $routes->post('Pembeli', 'PembeliLogin::auth');
+    $routes->get('Pembeli/Destroy', 'PembeliLogin::logout');
+    $routes->get('Pembeli/Registration', 'PembeliLogin::registration');
+    $routes->post('Pembeli/Registration', 'PembeliLogin::signup');
+});
 
 /*
  * --------------------------------------------------------------------
