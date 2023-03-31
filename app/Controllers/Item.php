@@ -20,7 +20,7 @@ class Item extends BaseController
     public function index()
     {
         $data = [
-            'item' => $this->itemModel->findAll()
+            'items' => $this->itemModel->findAll()
         ];
 
         return view('admin/item', $data);
@@ -58,7 +58,7 @@ class Item extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('AdmPanel/item/new'))->with('type-status', 'error')
+            return redirect()->to(base_url('AdmPanel/Item/new'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 
@@ -78,7 +78,7 @@ class Item extends BaseController
 
         $this->itemModel->save($data);
 
-        return redirect()->to(base_url('AdmPanel/item'))->with('type-status', 'info')
+        return redirect()->to(base_url('AdmPanel/Item'))->with('type-status', 'info')
             ->with('message', 'Data berhasil ditambahkan');
     }
 
@@ -142,7 +142,7 @@ class Item extends BaseController
         }
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('AdmPanel/item/' . $id . '/edit'))->with('type-status', 'error')
+            return redirect()->to(base_url('AdmPanel/Item/' . $id . '/edit'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 
@@ -152,7 +152,7 @@ class Item extends BaseController
 
         $this->itemModel->update($id, $data);
 
-        return redirect()->to(base_url('AdmPanel/item'))->with('type-status', 'info')
+        return redirect()->to(base_url('AdmPanel/Item'))->with('type-status', 'info')
             ->with('message', 'Data berhasil diubah');
     }
 
@@ -160,7 +160,7 @@ class Item extends BaseController
     {
         $this->itemModel->delete($id);
 
-        return redirect()->to(base_url('AdmPanel/item'))->with('type-status', 'info')
+        return redirect()->to(base_url('AdmPanel/Item'))->with('type-status', 'info')
             ->with('message', 'Data berhasil terhapus');
     }
 }

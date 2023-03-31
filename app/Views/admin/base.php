@@ -2,18 +2,24 @@
 <html lang="en">
 
 <head>
-  <title>Admin Panel</title>
+  <title>🏘 Meubel Shop | Admin Panel</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/bootstrap.min.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/bootstrap-responsive.min.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/fullcalendar.css" />
-  <link rel="stylesheet" href="<?= base_url(''); ?>/css/font-awesome.css" />
+  <link rel="stylesheet" href="<?= base_url(''); ?>/fontawesome-free-6.4.0-web/css/all.min.css" />
   <script src="<?= base_url(''); ?>/swal/dist/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="<?= base_url(''); ?>/swal/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="<?= base_url('/'); ?>/toastr/build/toastr.min.css">
+  <link rel="stylesheet" href="<?= base_url('/'); ?>/css/select2.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/maruti-style.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/maruti-media.css" class="skin-color" />
+  <style>
+    .text-white {
+      color: white;
+    }
+  </style>
 </head>
 
 <body>
@@ -34,33 +40,17 @@
   <script src="<?= base_url(''); ?>/js/fullcalendar.min.js"></script>
 
   <script src="<?= base_url('/'); ?>/toastr/build/toastr.min.js"></script>
-
+  <script src="<?= base_url('/'); ?>/fontawesome-free-6.4.0-web/js/all.min.js"></script>
+  <script src="<?= base_url('/'); ?>/js/jquery.dataTables.min.js"></script>
+  <script src="<?= base_url('/'); ?>/js/select2.min.js"></script>
   <script src="<?= base_url(''); ?>/js/maruti.js"></script>
-  <script src="<?= base_url(''); ?>/js/maruti.dashboard.js"></script>
-  <script src="<?= base_url(''); ?>/js/maruti.chat.js"></script>
+  <!-- <script src="<?= base_url(''); ?>/js/maruti.dashboard.js"></script> -->
+  <script src="<?= base_url(''); ?>/js/maruti.tables.js"></script>
 
 
   <?= $this->renderSection('script'); ?>
 
   <script>
-    $(function() {
-      $(".datatablefull").DataTable({
-        "responsive": true,
-        "lengthChange": false,
-        "autoWidth": false,
-        "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-      }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-      $('.datatableminimal').DataTable({
-        "paging": true,
-        "lengthChange": false,
-        "searching": false,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-
     toastr.options = {
       "closeButton": false,
       "debug": false,
