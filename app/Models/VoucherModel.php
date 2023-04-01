@@ -11,6 +11,7 @@ class VoucherModel extends Model
     protected $allowedFields    = [
         'title_voucher',
         'persen',
+        'jenis_pembeli_for',
         'up_datetime',
     ];
 }

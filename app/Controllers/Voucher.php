@@ -52,6 +52,7 @@ class Voucher extends BaseController
         $rules = [
             'title' => 'required|min_length[15]|max_length[30]',
             'persen' => 'required|min_length[1]|max_length[2]',
+            'jenis' => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -62,6 +63,7 @@ class Voucher extends BaseController
         $data = [
             'title_voucher' => $this->request->getPost('title'),
             'persen' => $this->request->getPost('persen'),
+            'jenis_pembeli_for' => $this->request->getPost('jenis'),
             'up_datetime' => date('Y-m-d H:i:s')
         ];
 
@@ -78,6 +80,7 @@ class Voucher extends BaseController
      */
     public function edit($id = null)
     {
+        helper('form');
         return view('admin/voucher_edit', [
             'title' => 'Edit Voucher',
             'parentdir' => 'voucher',
@@ -95,6 +98,7 @@ class Voucher extends BaseController
         $rules = [
             'title' => 'required|min_length[15]|max_length[30]',
             'persen' => 'required|min_length[1]|max_length[2]',
+            'jenis' => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -105,6 +109,7 @@ class Voucher extends BaseController
         $data = [
             'title_voucher' => $this->request->getPost('title'),
             'persen' => $this->request->getPost('persen'),
+            'jenis_pembeli_for' => $this->request->getPost('jenis'),
             'up_datetime' => date('Y-m-d H:i:s')
         ];
 
