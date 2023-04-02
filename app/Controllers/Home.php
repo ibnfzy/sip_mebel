@@ -24,7 +24,10 @@ class Home extends BaseController
 
     public function item()
     {
-        return view('web/item');
+        return view('web/item', [
+            'data' => $this->itemModel->orderBy('id_item', 'DESC')->paginate(8, 'item'),
+            'pager' => $this->itemModel->pager
+        ]);
     }
 
     public function item_detail($id)

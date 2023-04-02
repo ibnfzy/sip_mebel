@@ -27,7 +27,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   <link href="<?= base_url(''); ?>/assets/css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
   <link href="<?= base_url(''); ?>/assets/css/style.css" rel="stylesheet" type="text/css" media="all" />
   <!-- font-awesome icons -->
-  <link href="<?= base_url(''); ?>/assets/css/font-awesome.css" rel="stylesheet" type="text/css" media="all" />
+  <link rel="stylesheet" href="<?= base_url(''); ?>/fontawesome-free-6.4.0-web/css/all.min.css" />
   <!-- //font-awesome icons -->
   <script src="<?= base_url(''); ?>/swal/dist/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="<?= base_url(''); ?>/swal/dist/sweetalert2.min.css">
@@ -59,7 +59,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <body>
   <?= $this->include('web/layout/navbar'); ?>
   <!-- banner -->
-
+  <?= $this->renderSection('content'); ?>
   <!-- //newsletter -->
   <!-- footer -->
   <?= $this->include('web/layout/footer'); ?>
@@ -67,6 +67,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
   <!-- Bootstrap Core JavaScript -->
   <script src="<?= base_url(''); ?>/assets/js/bootstrap.min.js"></script>
   <script src="<?= base_url('/'); ?>/toastr/build/toastr.min.js"></script>
+  <script src="<?= base_url('/'); ?>/fontawesome-free-6.4.0-web/js/all.min.js"></script>
   <script>
   $(document).ready(function() {
     $(".dropdown").hover(

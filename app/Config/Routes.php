@@ -30,6 +30,14 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+$routes->get('Item', 'Home::item');
+$routes->get('Item/(:any)', 'Home::item_detail/$1');
+$routes->get('Cart', 'Home::cart');
+$routes->post('add_item', 'Home::add_item');
+$routes->get('remove_item/(:any)', 'Home::remove_item/$1');
+$routes->get('clear_cart', 'Home::clear_cart');
+$routes->post('update_cart', 'Home::update_cart');
+$routes->post('diskon', 'Home::diskon_get');
 
 $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], static function ($routes) {
     $routes->get('/', 'AdmController::index');

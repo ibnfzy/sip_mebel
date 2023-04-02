@@ -1,78 +1,36 @@
 <!-- header -->
-<div class="agileits_header">
-  <div class="w3l_offers">
-    <a href="products.html">Today's special Offers !</a>
-  </div>
-  <div class="w3l_search">
-    <form action="#" method="post">
-      <input type="text" name="Product" value="Search a product..." onfocus="this.value = '';"
-        onblur="if (this.value == '') {this.value = 'Search a product...';}" required="">
-      <input type="submit" value=" ">
-    </form>
-  </div>
-  <div class="product_list_header">
-    <form action="#" method="post" class="last">
-      <fieldset>
-        <input type="hidden" name="cmd" value="_cart" />
-        <input type="hidden" name="display" value="1" />
-        <input type="submit" name="submit" value="View your cart" class="button" />
-      </fieldset>
-    </form>
-  </div>
-  <div class="w3l_header_right">
-    <ul>
-      <li class="dropdown profile_details_drop">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user" aria-hidden="true"></i><span
-            class="caret"></span></a>
-        <div class="mega-dropdown-menu">
-          <div class="w3ls_vegetables">
-            <ul class="dropdown-menu drp-mnu">
-              <li><a href="login.html">Login</a></li>
-              <li><a href="login.html">Sign Up</a></li>
-            </ul>
-          </div>
-        </div>
-      </li>
-    </ul>
-  </div>
-  <div class="w3l_header_right1">
-    <h2><a href="mail.html">Contact Us</a></h2>
-  </div>
-  <div class="clearfix"> </div>
-</div>
+
 <!-- script-for sticky-nav -->
 <script>
-$(document).ready(function() {
-  var navoffeset = $(".agileits_header").offset().top;
-  $(window).scroll(function() {
-    var scrollpos = $(window).scrollTop();
-    if (scrollpos >= navoffeset) {
-      $(".agileits_header").addClass("fixed");
-    } else {
-      $(".agileits_header").removeClass("fixed");
-    }
-  });
+  $(document).ready(function() {
+    var navoffeset = $(".agileits_header").offset().top;
+    $(window).scroll(function() {
+      var scrollpos = $(window).scrollTop();
+      if (scrollpos >= navoffeset) {
+        $(".agileits_header").addClass("fixed");
+      } else {
+        $(".agileits_header").removeClass("fixed");
+      }
+    });
 
-});
+  });
 </script>
 <!-- //script-for sticky-nav -->
 <div class="logo_products">
   <div class="container">
     <div class="w3ls_logo_products_left">
-      <h1><a href="index.html"><span>Grocery</span> Store</a></h1>
+      <h1><a href="<?= base_url('/'); ?>"><span>🏘 Meubel </span> Shop</a></h1>
     </div>
     <div class="w3ls_logo_products_left1">
       <ul class="special_items">
-        <li><a href="events.html">Events</a><i>/</i></li>
-        <li><a href="about.html">About Us</a><i>/</i></li>
-        <li><a href="products.html">Best Deals</a><i>/</i></li>
-        <li><a href="services.html">Services</a></li>
+        <li><a href="<?= base_url('/'); ?>">Home</a><i>/</i></li>
+        <li><a href="<?= base_url('/Item'); ?>">Item Katalog</a><i></i></li>
       </ul>
     </div>
     <div class="w3ls_logo_products_left1">
       <ul class="phone_email">
-        <li><i class="fa fa-phone" aria-hidden="true"></i>(+0123) 234 567</li>
-        <li><i class="fa fa-envelope-o" aria-hidden="true"></i><a href="mailto:store@grocery.com">store@grocery.com</a>
+        <li><a href="<?= base_url('Cart'); ?>"><i class="fa-solid fa-cart-shopping"></i> Keranjang</a> </li>
+        <li><i class="fa-solid fa-user"></i><a href="<?= base_url('PembeliPanel'); ?>"> Login</a>
         </li>
       </ul>
     </div>
@@ -86,8 +44,7 @@ $(document).ready(function() {
     <nav class="navbar nav_bottom">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header nav_2">
-        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse"
-          data-target="#bs-megadropdown-tabs">
+        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -97,6 +54,9 @@ $(document).ready(function() {
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav nav_1">
+          <li style="position: relative; height: auto; margin-left: 20%; padding-top: 10px; font-weight: bold; padding-bottom: 5px;">
+            Kategori
+            Item</li>
           <li><a href="products.html">Branded Foods</a></li>
           <li><a href="household.html">Households</a></li>
           <li class="dropdown mega-dropdown active">
@@ -145,29 +105,26 @@ $(document).ready(function() {
       <div class="flexslider">
         <ul class="slides">
           <li>
-            <div class="w3l_banner_nav_right_banner">
+            <div class="w3l_banner_nav_right_banner" style="--imgurl: url('../images/1.jpg')">
               <h3>Make your <span>food</span> with Spicy.</h3>
               <div class="more">
-                <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                  data-text="Shop now">Shop now</a>
+                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
               </div>
             </div>
           </li>
           <li>
-            <div class="w3l_banner_nav_right_banner1">
+            <div class="w3l_banner_nav_right_banner" style="--imgurl: url('../images/2.jpg')">
               <h3>Make your <span>food</span> with Spicy.</h3>
               <div class="more">
-                <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                  data-text="Shop now">Shop now</a>
+                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
               </div>
             </div>
           </li>
           <li>
-            <div class="w3l_banner_nav_right_banner2">
+            <div class="w3l_banner_nav_right_banner" style="--imgurl: url('../images/3.jpg')">
               <h3>upto <i>50%</i> off.</h3>
               <div class="more">
-                <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                  data-text="Shop now">Shop now</a>
+                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
               </div>
             </div>
           </li>
@@ -175,18 +132,17 @@ $(document).ready(function() {
       </div>
     </section>
     <!-- flexSlider -->
-    <link rel="stylesheet" href="<?= base_url(''); ?>/assets/css/flexslider.css" type="text/css" media="screen"
-      property="" />
+    <link rel="stylesheet" href="<?= base_url(''); ?>/assets/css/flexslider.css" type="text/css" media="screen" property="" />
     <script defer src="<?= base_url(''); ?>/assets/js/jquery.flexslider.js"></script>
     <script type="text/javascript">
-    $(window).load(function() {
-      $('.flexslider').flexslider({
-        animation: "slide",
-        start: function(slider) {
-          $('body').removeClass('loading');
-        }
+      $(window).load(function() {
+        $('.flexslider').flexslider({
+          animation: "slide",
+          start: function(slider) {
+            $('body').removeClass('loading');
+          }
+        });
       });
-    });
     </script>
     <!-- //flexSlider -->
   </div>

@@ -302,8 +302,10 @@ ul.dropdown-menu.drp-mnu li a i {
 	padding:10em 17em 0 0;
 	margin-bottom: 5em;
 }
-.w3l_banner_nav_right_banner{
-	background:url(../images/1.jpg) no-repeat 0px 0px;
+
+.w3l_banner_nav_right_banner {
+	/* background:url() no-repeat 0px 0px; */
+	background: var(--imgurl);
 	background-size:cover;
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
@@ -522,7 +524,7 @@ ul.dropdown-menu.drp-mnu li a i {
 	margin:0 auto;
 }
 .agile_top_brands_grids{
-	margin:3em 0 0;
+	margin:3em ;
 }
 .top-brands{
     background: #f5f5f5;
@@ -866,7 +868,9 @@ button.submit.check_out{
 /*-- //cart --*/
 .column div.agile_top_brand_left_grid {
 	position: relative;
-	margin:0;
+	/* margin:0 0 2 0; */
+	margin: 0;
+	margin-bottom: 10px;
 }
 .agile_top_brand_left_grid figure {
 	margin: 0;

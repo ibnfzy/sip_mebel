@@ -179,6 +179,150 @@
           </div>
         </div>
       </div>
+      <div class="col-md-3 top_brand_left">
+        <div class="hover14 column">
+          <div class="agile_top_brand_left_grid">
+            <div class="agile_top_brand_left_grid_pos">
+              <img src="images/offer.png" alt=" " class="img-responsive" />
+            </div>
+            <div class="agile_top_brand_left_grid1">
+              <figure>
+                <div class="snipcart-item block">
+                  <div class="snipcart-thumb">
+                    <a href="single.html"><img src="images/4.png" alt=" " class="img-responsive" /></a>
+                    <p>dogs food (4 Kg)</p>
+                    <h4>$9.00 <span>$11.00</span></h4>
+                  </div>
+                  <div class="snipcart-details top_brand_home_details">
+                    <form action="#" method="post">
+                      <fieldset>
+                        <input type="hidden" name="cmd" value="_cart" />
+                        <input type="hidden" name="add" value="1" />
+                        <input type="hidden" name="business" value=" " />
+                        <input type="hidden" name="item_name" value="dogs food" />
+                        <input type="hidden" name="amount" value="9.00" />
+                        <input type="hidden" name="discount_amount" value="1.00" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="hidden" name="return" value=" " />
+                        <input type="hidden" name="cancel_return" value=" " />
+                        <input type="submit" name="submit" value="Add to cart" class="button" />
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 top_brand_left">
+        <div class="hover14 column">
+          <div class="agile_top_brand_left_grid">
+            <div class="agile_top_brand_left_grid_pos">
+              <img src="images/offer.png" alt=" " class="img-responsive" />
+            </div>
+            <div class="agile_top_brand_left_grid1">
+              <figure>
+                <div class="snipcart-item block">
+                  <div class="snipcart-thumb">
+                    <a href="single.html"><img src="images/4.png" alt=" " class="img-responsive" /></a>
+                    <p>dogs food (4 Kg)</p>
+                    <h4>$9.00 <span>$11.00</span></h4>
+                  </div>
+                  <div class="snipcart-details top_brand_home_details">
+                    <form action="#" method="post">
+                      <fieldset>
+                        <input type="hidden" name="cmd" value="_cart" />
+                        <input type="hidden" name="add" value="1" />
+                        <input type="hidden" name="business" value=" " />
+                        <input type="hidden" name="item_name" value="dogs food" />
+                        <input type="hidden" name="amount" value="9.00" />
+                        <input type="hidden" name="discount_amount" value="1.00" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="hidden" name="return" value=" " />
+                        <input type="hidden" name="cancel_return" value=" " />
+                        <input type="submit" name="submit" value="Add to cart" class="button" />
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 top_brand_left">
+        <div class="hover14 column">
+          <div class="agile_top_brand_left_grid">
+            <div class="agile_top_brand_left_grid_pos">
+              <img src="images/offer.png" alt=" " class="img-responsive" />
+            </div>
+            <div class="agile_top_brand_left_grid1">
+              <figure>
+                <div class="snipcart-item block">
+                  <div class="snipcart-thumb">
+                    <a href="single.html"><img src="images/4.png" alt=" " class="img-responsive" /></a>
+                    <p>dogs food (4 Kg)</p>
+                    <h4>$9.00 <span>$11.00</span></h4>
+                  </div>
+                  <div class="snipcart-details top_brand_home_details">
+                    <form action="#" method="post">
+                      <fieldset>
+                        <input type="hidden" name="cmd" value="_cart" />
+                        <input type="hidden" name="add" value="1" />
+                        <input type="hidden" name="business" value=" " />
+                        <input type="hidden" name="item_name" value="dogs food" />
+                        <input type="hidden" name="amount" value="9.00" />
+                        <input type="hidden" name="discount_amount" value="1.00" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="hidden" name="return" value=" " />
+                        <input type="hidden" name="cancel_return" value=" " />
+                        <input type="submit" name="submit" value="Add to cart" class="button" />
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 top_brand_left">
+        <div class="hover14 column">
+          <div class="agile_top_brand_left_grid">
+            <div class="agile_top_brand_left_grid_pos">
+              <img src="images/offer.png" alt=" " class="img-responsive" />
+            </div>
+            <div class="agile_top_brand_left_grid1">
+              <figure>
+                <div class="snipcart-item block">
+                  <div class="snipcart-thumb">
+                    <a href="single.html"><img src="images/4.png" alt=" " class="img-responsive" /></a>
+                    <p>dogs food (4 Kg)</p>
+                    <h4>$9.00 <span>$11.00</span></h4>
+                  </div>
+                  <div class="snipcart-details top_brand_home_details">
+                    <form action="#" method="post">
+                      <fieldset>
+                        <input type="hidden" name="cmd" value="_cart" />
+                        <input type="hidden" name="add" value="1" />
+                        <input type="hidden" name="business" value=" " />
+                        <input type="hidden" name="item_name" value="dogs food" />
+                        <input type="hidden" name="amount" value="9.00" />
+                        <input type="hidden" name="discount_amount" value="1.00" />
+                        <input type="hidden" name="currency_code" value="USD" />
+                        <input type="hidden" name="return" value=" " />
+                        <input type="hidden" name="cancel_return" value=" " />
+                        <input type="submit" name="submit" value="Add to cart" class="button" />
+                      </fieldset>
+                    </form>
+                  </div>
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="clearfix"> </div>
     </div>
   </div>
@@ -217,8 +361,7 @@
               <img src="images/7.jpg" alt=" " class="img-responsive" />
               <div class="w3l_fresh_vegetables_grid1_rel_pos">
                 <div class="more m1">
-                  <a href="products.html" class="button--saqui button--round-l button--text-thick"
-                    data-text="Shop now">Shop now</a>
+                  <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
                 </div>
               </div>
             </div>
@@ -262,8 +405,7 @@
     </div>
     <div class="w3agile_newsletter_right">
       <form action="#" method="post">
-        <input type="email" name="Email" value="Email" onfocus="this.value = '';"
-          onblur="if (this.value == '') {this.value = 'Email';}" required="">
+        <input type="email" name="Email" value="Email" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Email';}" required="">
         <input type="submit" value="subscribe now">
       </form>
     </div>
