@@ -52,10 +52,25 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], static function (
 
 $routes->group('PembeliPanel', ['namespace' => 'App\Controllers'], static function ($routes) {
     $routes->get('/', 'PembeliController::index');
+    $routes->get('Transaksi', 'PembeliController::transaksi');
+    $routes->get('Ubah_status_selesai', 'PembeliController::ubah_status');
+    $routes->get('Transaksi/(:any)', 'PembeliController::invoice/$1');
+    $routes->post('Upload_bukti_bayar', 'PembeliController::upload');
+    $routes->get('Voucher', 'PembeliController::voucher');
+    $routes->get('Review', 'PembeliController::review');
+    $routes->get('Review/(:any)', 'PembeliController::add_review/$1');
+    $routes->post('Review', 'PembeliController::save_review');
+    $routes->get('Setting', 'PembeliController::setting');
+    $routes->post('Setting', 'PembeliController::save_setting');
 });
 
 $routes->group('OwnerPanel', ['namespace' => 'App\Controllers'], static function ($routes) {
     $routes->get('/', 'OwnerController::index');
+    $routes->get('Transaksi', 'OwnerController::transaksi');
+    $routes->get('Item', 'OwnerController::item');
+    $routes->get('Pembeli', 'OwnerController::pembeli');
+    $routes->get('Laporan', 'OwnerController::laporan');
+    $routes->get('Print', 'OwnerController::print');
 });
 
 $routes->group('Auth', ['namespace' => 'App\Controllers'], static function ($routes) {
