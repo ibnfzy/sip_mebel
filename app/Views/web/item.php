@@ -14,7 +14,8 @@
               <figure>
                 <div class="snipcart-item block">
                   <div class="snipcart-thumb">
-                    <a href="#"><img title=" " alt=" " src="<?= base_url('uploads/' . $item['gambar_item']); ?>" /></a>
+                    <a href="<?= base_url('Item/' . $item['id_item']); ?>"><img title=" " alt=" "
+                        src="<?= base_url('uploads/' . $item['gambar_item']); ?>" /></a>
                     <p><?= $item['nama_item']; ?> <br> Stok: <?= $item['stok_item']; ?></p>
                     <h4>Rp. <?= $item['harga_item']; ?></h4>
                   </div>
