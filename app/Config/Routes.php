@@ -55,7 +55,7 @@ $routes->group('PembeliPanel', ['namespace' => 'App\Controllers'], static functi
     $routes->get('Transaksi', 'PembeliController::transaksi');
     $routes->get('Ubah_status_selesai', 'PembeliController::ubah_status');
     $routes->get('Transaksi/(:any)', 'PembeliController::invoice/$1');
-    $routes->post('Upload_bukti_bayar', 'PembeliController::upload');
+    $routes->post('Upload_bukti_bayar/(:any)', 'PembeliController::upload/$1');
     $routes->get('Voucher', 'PembeliController::voucher');
     $routes->get('Review', 'PembeliController::review');
     $routes->get('Review/(:any)', 'PembeliController::add_review/$1');
