@@ -129,21 +129,21 @@ class Home extends BaseController
     public function diskon_get()
     {
         $session = session();
-        if (isset($_SESSION['id_user'])) {
-            $get = $this->db->table('voucheruser')
-                ->where('id_user', $_SESSION['id_user'])
-                ->where('id_user_voucher', $this->request->getPost('id'))
+        if (isset($_SESSION['id_pembeli'])) {
+            $get = $this->db->table('voucher_pembeli')
+                ->where('id_pembeli', $_SESSION['id_pembeli'])
+                ->where('id_pembeli_voucher', $this->request->getPost('id'))
                 ->get()
                 ->getResultArray();
 
             if ($get) {
                 $session->set([
                     'diskon' => $get[0]['potongan'],
-                    'id_diskon' => $get[0]['id_user_voucher']
+                    'id_pembeli_voucher' => $get[0]['id_pembeli_voucher']
                 ]);
                 return $this->response->setJSON([
                     'msg' => 'Kode Diskon tersedia!',
-                    'id' => $get[0]['id_user_voucher'],
+                    'id' => $get[0]['id_pembeli_voucher'],
                     'diskon' => $get[0]['potongan']
                 ]);
             } else {

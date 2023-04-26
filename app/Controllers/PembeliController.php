@@ -9,6 +9,7 @@ use App\Models\ItemModel;
 use App\Models\PembeliInformasiModel;
 use App\Models\ReviewItemModel;
 use App\Models\TransactionsModel;
+use App\Models\VoucherPembeliModel;
 
 class PembeliController extends BaseController
 {
@@ -20,6 +21,7 @@ class PembeliController extends BaseController
     protected $informasiPembeli;
     protected $tokoInformasi;
     protected $reviewModel;
+    protected $voucherPembeli;
 
     public function __construct()
     {
@@ -29,6 +31,7 @@ class PembeliController extends BaseController
         $this->informasiPembeli = new PembeliInformasiModel();
         $this->tokoInformasi    = new InformasiTokoModel();
         $this->reviewModel      = new ReviewItemModel();
+        $this->voucherPembeli   = new VoucherPembeliModel();
         $this->db               = \Config\Database::connect();
         $this->cart             = \Config\Services::cart();
     }
@@ -61,6 +64,12 @@ class PembeliController extends BaseController
         $data = [
             'status_bayar' => $this->request->getPost('status_bayar')
         ];
+
+        if ($this->request->getPost('id_voucher_pembeli') != null) {
+            $this->voucherPembeli->update($this->request->getPost('id_voucher_pembeli'), [
+                'status' => 'Terpakai'
+            ]);
+        }
 
         $this->cart_itemModel->update($this->request->getPost('id_cart_item'), $data);
 
@@ -276,6 +285,7 @@ class PembeliController extends BaseController
 
             $dataKeranjang = [
                 'id_pembeli' => session()->get('id_pembeli'),
+                'id_pembeli_voucher' => $_SESSION['id_voucher_pembeli'],
                 'rowid' => $rowid,
                 'total_items' => $this->cart->totalItems(),
                 'potongan' => $diskon,
@@ -284,6 +294,11 @@ class PembeliController extends BaseController
                 'tgl_checkout' => date('Y-m-d')
             ];
 
+            $dataVoucherPembeli = [
+                'status' => 'Proses Pemakaian'
+            ];
+
+            $this->voucherPembeli->update($_SESSION['id_voucher_pembeli'], $dataVoucherPembeli);
             $this->db->table('transactions')->insertBatch($data);
             $this->db->table('cart_item')->insert($dataKeranjang);
 

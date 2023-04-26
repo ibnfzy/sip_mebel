@@ -76,6 +76,9 @@ $routes->group('OwnerPanel', ['namespace' => 'App\Controllers'], static function
     $routes->get('Pembeli', 'OwnerController::pembeli');
     $routes->get('Laporan', 'OwnerController::laporan');
     $routes->get('Print', 'OwnerController::print');
+    $routes->get('Settings', 'OwnerController::setting');
+    $routes->get('Settings', 'OwnerController::save_setting');
+    $routes->resource('Admin');
 });
 
 $routes->group('Auth', ['namespace' => 'App\Controllers'], static function ($routes) {

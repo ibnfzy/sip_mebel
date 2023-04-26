@@ -18,7 +18,7 @@ class InformasiToko extends BaseController
     {
         helper('form');
         // dd($this->settingsModel->find($id));
-        return view('admin/setting', [
+        return view('admin/web_setting', [
             'title' => 'Informasi Settings',
             'parentdir' => 'settings',
             'data' => $this->settingsModel->find('01')
