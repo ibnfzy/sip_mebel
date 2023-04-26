@@ -32,6 +32,7 @@ $routes->set404Override();
 $routes->get('/', 'Home::index');
 $routes->get('Item', 'Home::item');
 $routes->get('Item/(:any)', 'Home::item_detail/$1');
+$routes->get('ItemByKategori/(:any)', 'Home::kategori/$1');
 $routes->get('Cart', 'Home::cart');
 $routes->post('add_item', 'Home::add_item');
 $routes->get('remove_item/(:any)', 'Home::remove_item/$1');
@@ -44,6 +45,10 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], static function (
     $routes->get('Settings', 'InformasiToko::index');
     $routes->get('Pembeli', 'Pembeli::index');
     $routes->post('Settings', 'InformasiToko::update');
+    $routes->get('Transaksi', 'AdmController::transaksi');
+    $routes->get('Transaksi/(:any)', 'AdmController::invoice/$1');
+    $routes->get('Validasi/(:any)', 'AdmController::validasi_bb/$1');
+    $routes->get('Kirim/(:any)', 'AdmController::update_kirim/$1');
     $routes->resource('Corousel');
     $routes->resource('KategoriItem');
     $routes->resource('Item');

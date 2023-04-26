@@ -4,8 +4,9 @@
 
 <div id="content">
   <div id="content-header">
-    <a href="<?= base_url('AdmPanel/Item/new'); ?>" class="btn btn-primary"><i class="icon icon-plus-sign"></i>
-      Tambah</button>
+    <hr>
+    <a href="<?= base_url('AdmPanel/Item/new'); ?>" style="margin-left: 20px;" class="btn btn-primary"> <i class="fa-solid fa-square-plus"></i>
+      Tambah</a>
   </div>
   <div class="container-fluid">
     <div class="row-fluid">

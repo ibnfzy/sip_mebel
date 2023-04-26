@@ -3,8 +3,8 @@
     <div class="col-md-3 w3_footer_grid">
       <h3>Fast Link</h3>
       <ul class="w3_footer_grid_list">
-        <li><a href="events.html">Login sebagai Owner</a></li>
-        <li><a href="about.html">Login sebagai Admin</a></li>
+        <li><a href="<?= base_url('OwnerPanel'); ?>">Login sebagai Owner</a></li>
+        <li><a href="<?= base_url('AdmPanel'); ?>">Login sebagai Admin</a></li>
       </ul>
     </div>
     <div class="clearfix"> </div>

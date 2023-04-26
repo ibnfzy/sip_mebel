@@ -1,12 +1,11 @@
 <?= $this->extend('web/base'); ?>
 <?= $this->section('content'); ?>
 
-<!-- top-brands -->
 <div class="top-brands">
   <div class="container">
-    <h3>Rekomendasi Item</h3>
+    <h3>Item Katalog</h3>
     <div class="agile_top_brands_grids">
-      <?php foreach ($rekom as $item) : ?>
+      <?php foreach ($data as $item) : ?>
       <div class="col-md-3 top_brand_left ">
         <div class="hover14 column">
           <div class="agile_top_brand_left_grid">
@@ -50,10 +49,11 @@
 
       <div class="clearfix"> </div>
     </div>
+
   </div>
+  <?= $pager->links('item', 'item_page') ?>
+  <!-- pager -->
 </div>
-<!-- //top-brands -->
-<!-- fresh-vegetables -->
 
 <?= $this->endSection(); ?>
 

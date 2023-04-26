@@ -4,10 +4,7 @@
 
 <div id="content">
   <div id="content-header">
-    <hr>
-    <a href="<?= base_url('AdmPanel/Corousel/new'); ?>" style="margin-left: 20px;" class="btn btn-primary"><i
-        class="fa-solid fa-square-plus"></i>
-      Tambah</a>
+
   </div>
   <div class="container-fluid">
     <div class="row-fluid">
@@ -22,30 +19,26 @@
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>Gambar</th>
-                  <th>Header Corousel</th>
-                  <th>Link Halaman</th>
-                  <th>Aksi</th>
+                  <th>Nama</th>
+                  <th>Total Transaksi</th>
+                  <th>Total Transaksi Berhasil</th>
+                  <th>Bukti Pembayaran belum diValidasi</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($data as $item) : ?>
+                <?php $db = \Config\Database::connect(); ?>
+                <?php foreach ($pelanggan as $item) : ?>
+                <?php
+                  $get1 = $db->table('cart_item')->where('id_pembeli', $item['id_pembeli'])->get()->getResultArray();
+                  $get2 = $db->table('cart_item')->where('id_pembeli', $item['id_pembeli'])->where('status_bayar', 'Selesai')->get()->getResultArray();
+                  $get3 = $db->table('cart_item')->where('id_pembeli', $item['id_pembeli'])->where('status_bayar', 'Menunggu Validasi Bukti Bayar')->get()->getResultArray();
+                  ?>
                 <tr>
-                  <td><?= $item['id_corousel']; ?></td>
-                  <td><img src="<?= base_url('uploads/' . $item['gambar']); ?>" alt="Gambar <?= $item['header']; ?>"
-                      width="100">
-                  <td><?= $item['header']; ?></td>
-                  <td><a title="Buka Link" href="<?= $item['link_to']; ?>" class="btn btn-warning"><i
-                        class="fas fa-external-link-alt"></i>
-                    </a></td>
-                  <td>
-                    <div class="btn-group btn-group-sm" role="group">
-                      <a href="<?= base_url('AdmPanel/Corousel/' . $item['id_corousel'] . '/edit'); ?>" type="button"
-                        class="btn btn-info"><i class="fas fa-edit"></i></a>
-                      <button onclick="deleteData('<?= $item['id_corousel']; ?>')" type="button"
-                        class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                  </td>
+                  <td><?= $item['id_pembeli']; ?></td>
+                  <td><?= $item['fullname']; ?></td>
+                  <td><?= count($get1); ?></td>
+                  <td><?= count($get2); ?></td>
+                  <td><?= count($get3); ?></td>
                 </tr>
                 <?php endforeach; ?>
               </tbody>

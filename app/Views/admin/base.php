@@ -45,6 +45,8 @@
   <script src="<?= base_url('/'); ?>/js/select2.min.js"></script>
   <script src="<?= base_url(''); ?>/js/maruti.js"></script>
   <!-- <script src="<?= base_url(''); ?>/js/maruti.dashboard.js"></script> -->
+  <!-- <script src="<?= base_url(''); ?>/js/maruti.charts.js"></script> -->
+  <script src="<?= base_url(''); ?>/js/jquery.peity.min.js"></script>
   <script src="<?= base_url(''); ?>/js/maruti.tables.js"></script>
 
 

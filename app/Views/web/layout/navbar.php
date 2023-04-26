@@ -2,18 +2,18 @@
 
 <!-- script-for sticky-nav -->
 <script>
-  $(document).ready(function() {
-    var navoffeset = $(".agileits_header").offset().top;
-    $(window).scroll(function() {
-      var scrollpos = $(window).scrollTop();
-      if (scrollpos >= navoffeset) {
-        $(".agileits_header").addClass("fixed");
-      } else {
-        $(".agileits_header").removeClass("fixed");
-      }
-    });
-
+$(document).ready(function() {
+  var navoffeset = $(".agileits_header").offset().top;
+  $(window).scroll(function() {
+    var scrollpos = $(window).scrollTop();
+    if (scrollpos >= navoffeset) {
+      $(".agileits_header").addClass("fixed");
+    } else {
+      $(".agileits_header").removeClass("fixed");
+    }
   });
+
+});
 </script>
 <!-- //script-for sticky-nav -->
 <div class="logo_products">
@@ -44,7 +44,8 @@
     <nav class="navbar nav_bottom">
       <!-- Brand and toggle get grouped for better mobile display -->
       <div class="navbar-header nav_2">
-        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse" data-target="#bs-megadropdown-tabs">
+        <button type="button" class="navbar-toggle collapsed navbar-toggle1" data-toggle="collapse"
+          data-target="#bs-megadropdown-tabs">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -54,48 +55,19 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav nav_1">
-          <li style="position: relative; height: auto; margin-left: 20%; padding-top: 10px; font-weight: bold; padding-bottom: 5px;">
+          <li
+            style="position: relative; height: auto; margin-left: 20%; padding-top: 10px; font-weight: bold; padding-bottom: 5px;">
             Kategori
             Item</li>
-          <li><a href="products.html">Branded Foods</a></li>
-          <li><a href="household.html">Households</a></li>
-          <li class="dropdown mega-dropdown active">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Veggies & Fruits<span class="caret"></span></a>
-            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-              <div class="w3ls_vegetables">
-                <ul>
-                  <li><a href="vegetables.html">Vegetables</a></li>
-                  <li><a href="vegetables.html">Fruits</a></li>
-                </ul>
-              </div>
-            </div>
+          <?php
+          $db = \Config\Database::connect();
+          $get = $db->table('kategori_item')->get()->getResultArray();
+          ?>
+          <?php foreach ($get as $item) : ?>
+          <li><a
+              href="<?= base_url('ItemByKategori/' . str_replace(' ', '_', $item['nama_kategori'])); ?>"><?= $item['nama_kategori']; ?></a>
           </li>
-          <li><a href="kitchen.html">Kitchen</a></li>
-          <li><a href="short-codes.html">Short Codes</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Beverages<span class="caret"></span></a>
-            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-              <div class="w3ls_vegetables">
-                <ul>
-                  <li><a href="drinks.html">Soft Drinks</a></li>
-                  <li><a href="drinks.html">Juices</a></li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li><a href="pet.html">Pet Food</a></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Frozen Foods<span class="caret"></span></a>
-            <div class="dropdown-menu mega-dropdown-menu w3ls_vegetables_menu">
-              <div class="w3ls_vegetables">
-                <ul>
-                  <li><a href="frozen.html">Frozen Snacks</a></li>
-                  <li><a href="frozen.html">Frozen Nonveg</a></li>
-                </ul>
-              </div>
-            </div>
-          </li>
-          <li><a href="bread.html">Bread & Bakery</a></li>
+          <?php endforeach ?>
         </ul>
       </div><!-- /.navbar-collapse -->
     </nav>
@@ -104,45 +76,38 @@
     <section class="slider">
       <div class="flexslider">
         <ul class="slides">
+          <?php foreach ($cr as $item) : ?>
           <li>
-            <div class="w3l_banner_nav_right_banner" style="--imgurl: url('../images/1.jpg')">
-              <h3>Make your <span>food</span> with Spicy.</h3>
+            <div class="w3l_banner_nav_right_banner"
+              style="--imgurl: url('<?= base_url('uploads/' . $item['gambar']) ?>')">
+              <h3
+                style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; color: #84C639; -webkit-font-smoothing: antialiased; font-weight: bold;">
+                <?= $item['header']; ?></h3>
               <div class="more">
-                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
+                <?php if ($item['link_to'] != '') : ?>
+                <a href="<?= $item['link_to'] ?>" class="button--saqui button--round-l button--text-thick"
+                  data-text="Lihat detail">Lihat detail</a>
+                <?php endif ?>
               </div>
             </div>
           </li>
-          <li>
-            <div class="w3l_banner_nav_right_banner" style="--imgurl: url('../images/2.jpg')">
-              <h3>Make your <span>food</span> with Spicy.</h3>
-              <div class="more">
-                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
-              </div>
-            </div>
-          </li>
-          <li>
-            <div class="w3l_banner_nav_right_banner" style="--imgurl: url('../images/3.jpg')">
-              <h3>upto <i>50%</i> off.</h3>
-              <div class="more">
-                <a href="products.html" class="button--saqui button--round-l button--text-thick" data-text="Shop now">Shop now</a>
-              </div>
-            </div>
-          </li>
+          <?php endforeach ?>
         </ul>
       </div>
     </section>
     <!-- flexSlider -->
-    <link rel="stylesheet" href="<?= base_url(''); ?>/assets/css/flexslider.css" type="text/css" media="screen" property="" />
+    <link rel="stylesheet" href="<?= base_url(''); ?>/assets/css/flexslider.css" type="text/css" media="screen"
+      property="" />
     <script defer src="<?= base_url(''); ?>/assets/js/jquery.flexslider.js"></script>
     <script type="text/javascript">
-      $(window).load(function() {
-        $('.flexslider').flexslider({
-          animation: "slide",
-          start: function(slider) {
-            $('body').removeClass('loading');
-          }
-        });
+    $(window).load(function() {
+      $('.flexslider').flexslider({
+        animation: "slide",
+        start: function(slider) {
+          $('body').removeClass('loading');
+        }
       });
+    });
     </script>
     <!-- //flexSlider -->
   </div>

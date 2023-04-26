@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\CorouselModel;
 use App\Models\ItemModel;
 
 class Home extends BaseController
@@ -9,37 +10,58 @@ class Home extends BaseController
     protected $cart;
     protected $itemModel;
     protected $db;
+    protected $corouselModel;
+    protected $corousel;
 
     public function __construct()
     {
         $this->db = \Config\Database::connect();
         $this->cart = \Config\Services::cart();
         $this->itemModel = new ItemModel();
+        $this->corouselModel = new CorouselModel();
+
+        $this->corousel = $this->corouselModel->findAll();
     }
 
     public function index()
     {
-        return view('web/home');
+        return view('web/home', [
+            'cr' => $this->corousel,
+            'rekom' => $this->itemModel->orderBy('rand()')->findAll(8)
+        ]);
     }
 
     public function item()
     {
         return view('web/item', [
             'data' => $this->itemModel->orderBy('id_item', 'DESC')->paginate(8, 'item'),
-            'pager' => $this->itemModel->pager
+            'pager' => $this->itemModel->pager,
+            'cr' => $this->corousel
+        ]);
+    }
+
+    public function kategori($kategori)
+    {
+        return view('web/kategori', [
+            'data' => $this->itemModel->where('kategori_item', str_replace('_', ' ', $kategori))->orderBy('id_item', 'DESC')->paginate(8, 'item'),
+            'pager' => $this->itemModel->pager,
+            'cr' => $this->corousel
         ]);
     }
 
     public function item_detail($id)
     {
         return view('web/item_detail', [
-            'data' => $this->itemModel->find($id)
+            'data' => $this->itemModel->find($id),
+            'cr' => $this->corousel
         ]);
     }
 
     public function cart()
     {
-        return view('web/cart');
+        return view('web/cart', [
+            'cr' => $this->corousel
+        ]);
     }
 
     public function add_item()
