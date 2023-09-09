@@ -5,8 +5,7 @@
 <div id="content">
   <div id="content-header">
     <hr>
-    <a href="<?= base_url('AdmPanel/Corousel/new'); ?>" style="margin-left: 20px;" class="btn btn-primary"><i
-        class="fa-solid fa-square-plus"></i>
+    <a href="<?= base_url('AdmPanel/Corousel/new'); ?>" style="margin-left: 20px;" class="btn btn-primary"><i class="fa-solid fa-square-plus"></i>
       Tambah</a>
   </div>
   <div class="container-fluid">
@@ -23,30 +22,25 @@
                 <tr>
                   <th>#</th>
                   <th>Gambar</th>
-                  <th>Header Corousel</th>
-                  <th>Link Halaman</th>
+                  <th>Text</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($data as $item) : ?>
-                <tr>
-                  <td><?= $item['id_corousel']; ?></td>
-                  <td><img src="<?= base_url('uploads/' . $item['gambar']); ?>" alt="Gambar <?= $item['header']; ?>"
-                      width="100">
-                  <td><?= $item['header']; ?></td>
-                  <td><a title="Buka Link" href="<?= $item['link_to']; ?>" class="btn btn-warning"><i
-                        class="fas fa-external-link-alt"></i>
-                    </a></td>
-                  <td>
-                    <div class="btn-group btn-group-sm" role="group">
-                      <a href="<?= base_url('AdmPanel/Corousel/' . $item['id_corousel'] . '/edit'); ?>" type="button"
-                        class="btn btn-info"><i class="fas fa-edit"></i></a>
-                      <button onclick="deleteData('<?= $item['id_corousel']; ?>')" type="button"
-                        class="btn btn-danger"><i class="fas fa-trash"></i></button>
-                    </div>
-                  </td>
-                </tr>
+                <?php $i = 1;
+                foreach ($data as $item) : ?>
+                  <tr>
+                    <td><?= $i; ?></td>
+                    <td><img src="<?= base_url('uploads/' . $item['gambar']); ?>" alt="Gambar <?= $item['header']; ?>" width="100">
+                    <td><?= $item['header']; ?></td>
+                    <td>
+                      <div class="btn-group btn-group-sm" role="group">
+                        <a href="<?= base_url('AdmPanel/Corousel/' . $item['id_corousel'] . '/edit'); ?>" type="button" class="btn btn-info"><i class="fas fa-edit"></i></a>
+                        <button onclick="deleteData('<?= $item['id_corousel']; ?>')" type="button" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <?php $i++; ?>
                 <?php endforeach; ?>
               </tbody>
             </table>
@@ -62,41 +56,41 @@
 <?= $this->section('script'); ?>
 
 <script>
-function deleteData(a) {
-  swal.fire({
-      title: "Apa kamu yakin?",
-      text: "Data akan terhapus",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-    })
-    .then((willDelete) => {
-      if (willDelete) {
-        var xhr = new XMLHttpRequest()
-        xhr.onreadystatechange = function() {
-          var DONE = 4; // readyState 4 means the request is done.
-          var OK = 200; // status 200 is a successful return.
-          if (xhr.readyState === DONE) {
-            if (xhr.status === OK) {
-              swal.fire("Data Telah Terhapus", {
-                icon: "success",
-              }).then(() => {
-                window.location.reload()
-              }) // 'This is the returned text.'
-            } else {
-              swal.fire("Terjadi kesalahan pada AJAX", {
-                icon: "error",
-              })
-              console.log('Error: ' + xhr.status); // An error occurred during the request.
+  function deleteData(a) {
+    swal.fire({
+        title: "Apa kamu yakin?",
+        text: "Data akan terhapus",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          var xhr = new XMLHttpRequest()
+          xhr.onreadystatechange = function() {
+            var DONE = 4; // readyState 4 means the request is done.
+            var OK = 200; // status 200 is a successful return.
+            if (xhr.readyState === DONE) {
+              if (xhr.status === OK) {
+                swal.fire("Data Telah Terhapus", {
+                  icon: "success",
+                }).then(() => {
+                  window.location.reload()
+                }) // 'This is the returned text.'
+              } else {
+                swal.fire("Terjadi kesalahan pada AJAX", {
+                  icon: "error",
+                })
+                console.log('Error: ' + xhr.status); // An error occurred during the request.
+              }
             }
           }
+          xhr.open('GET', 'CorouselDelete/' + a)
+          xhr.send()
         }
-        xhr.open('DELETE', 'Corousel/' + a)
-        xhr.send()
-      }
-    });
-}
+      });
+  }
 </script>
 
 <?= $this->endSection(); ?>

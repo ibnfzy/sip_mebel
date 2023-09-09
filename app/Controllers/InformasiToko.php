@@ -31,23 +31,21 @@ class InformasiToko extends BaseController
         $rules = [
             'alamat' => 'required|min_length[5]|max_length[254]',
             'nomor' => 'required|min_length[10]|max_length[13]',
-            'ongkir' => 'required|min_length[4]|max_length[7]',
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('AdmPanel/Settings/01'))->with('type-status', 'error')
+            return redirect()->to(base_url('AdmPanel/Settings'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 
         $data = [
             'alamat_toko' => $this->request->getPost('alamat'),
             'kontak_toko' => $this->request->getPost('nomor'),
-            'biaya_ongkir' => $this->request->getPost('ongkir'),
         ];
 
         $this->settingsModel->update('01', $data);
 
-        return redirect()->to(base_url('AdmPanel/Settings/01'))->with('type-status', 'info')
+        return redirect()->to(base_url('AdmPanel/Settings'))->with('type-status', 'info')
             ->with('message', 'Data berhasil diperbarui');
     }
 }

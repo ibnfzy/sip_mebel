@@ -14,7 +14,7 @@
             <h5>Laporan Form</h5>
           </div>
           <div class="widget-content nopadding">
-            <form action="<?= base_url('OwnerPanel/Pembeli'); ?>" method="POST" class="form-horizontal">
+            <form action="<?= base_url('OwnerPanel/Print'); ?>" method="POST" class="form-horizontal">
               <div class="control-group">
                 <label class="control-label">Dari Tanggal :</label>
                 <div class="controls">

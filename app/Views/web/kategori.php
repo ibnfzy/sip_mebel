@@ -2,6 +2,15 @@
 <?= $this->section('content'); ?>
 
 <div class="top-brands">
+  <div class='container'>
+  <div class="w3ls_service_grids">
+				<div class="col-md-7 w3ls_service_grid_left">
+					<h2>Selamat Datang di website <br> Fauzan Meubel</h2>
+					<p style='color: black; font-size: 20px;'>Temukan keindahan dan kenyamanan dalam rumah impian Anda hanya di Fauzan Meubel! Dapatkan furnitur berkualitas terbaik untuk menciptakan ruang yang elegan dan fungsional. Belanja di website kami sekarang dan temukan koleksi lengkap kami. Mulailah merancang rumah impian Anda dengan gaya yang sesuai dengan pilihan dari Fauzan Meubel!. Dapat kan <b>Diskon sebesar 5%</b> untuk pembelian 1 Item, <b>10%</b> untuk pembelian 2 Item, dan dapatkan <b>Meja Gratis</b> untuk pembelian 3 Item, Tunggu apa lagi klik <a href="<?= base_url('Item') ?>">Link ini</a> untuk melihat Katalog Item tersedia.</p>
+				</div>
+				<div class="clearfix"> </div>
+			</div>
+  </div>
   <div class="container">
     <h3>Item Katalog</h3>
     <div class="agile_top_brands_grids">
@@ -14,8 +23,8 @@
               <figure>
                 <div class="snipcart-item block">
                   <div class="snipcart-thumb">
-                    <a href="<?= base_url('Item/' . $item['id_item']); ?>"><img title=" " alt=" "
-                        src="<?= base_url('uploads/' . $item['gambar_item']); ?>" /></a>
+                    <a href="<?= base_url('Item/' . $item['id_item']); ?>"><img height="140" width="140" title=" "
+                        alt=" " src="<?= base_url('uploads/' . $item['gambar_item']); ?>" /></a>
                     <p><?= $item['nama_item']; ?> <br> Stok: <?= $item['stok_item']; ?></p>
                     <h4>Rp. <?= $item['harga_item']; ?></h4>
                   </div>
@@ -31,7 +40,8 @@
                         <input type="hidden" name="currency_code" value="USD" />
                         <input type="hidden" name="return" value=" " />
                         <input type="hidden" name="cancel_return" value=" " />
-                        <input onclick="add_item('<?= $item['id_item'] ?>', <?= $item['stok_item'] ?>)" type="button"
+                        <input <?= ($item['nama_item'] == 'Meja') ? 'disabled' : ''; ?>
+                          onclick="add_item('<?= $item['id_item'] ?>', <?= $item['stok_item'] ?>)" type="button"
                           name="add" value="+ Keranjang" class="button" />
                       </fieldset>
 
@@ -93,15 +103,18 @@ function add_item(id, stok) {
     .then((willLogin) => {
       if (willLogin.isConfirmed) {
         var xhr = new XMLHttpRequest()
+        var data = new FormData()
         xhr.onreadystatechange = function() {
           var DONE = 4; // readyState 4 means the request is done.
           var OK = 200; // status 200 is a successful return.
           if (xhr.readyState === DONE) {
             if (xhr.status === OK) {
+              console.log('s: ' + xhr.response); // An error occurred during the request.
               swal.fire("Item berhasil masuk ke Keranjang, pergi ke halaman Keranjang?", {
                 icon: "success",
               }).then(() => {
-                window.location.reload()
+                window.location.replace('/Cart')
+
               }) // 'This is the returned text.'
             } else {
               swal.fire("Terjadi kesalahan pada AJAX, dengan error status: " + xhr.status, {
@@ -111,8 +124,9 @@ function add_item(id, stok) {
             }
           }
         }
+        data.append('id', id)
         xhr.open('POST', '/add_item')
-        xhr.send('id=' + parseInt(id))
+        xhr.send(data)
 
       } else {
         swal.fire("Item tidak ditambahkan ke Keranjang!");

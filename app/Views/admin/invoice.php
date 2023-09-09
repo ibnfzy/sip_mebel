@@ -176,22 +176,23 @@
         <td><?= $i++; ?></td>
         <td><?= $item['nama_item']; ?></td>
         <td><?= $item['qty_transactions']; ?></td>
-        <td>Rp. <?= $item['total_harga']; ?></td>
+        <td>Rp. <?= number_format($item['total_harga'], 0, ',', '.'); ?></td>
         <td><?= $item['transactions_datetime']; ?></td>
       </tr>
       <?php endforeach ?>
 
 
       <tr class="total">
-        <td>Subtotal: Rp. <?= $subtotal = array_sum($total); ?></td>
+        <td>Subtotal: Rp. <?php $subtotal = array_sum($total);
+                          echo number_format($subtotal, 0, ',', '.') ?></td>
         <td>Biaya Ongkir: Rp.
-          <?= $dataToko['biaya_ongkir']; ?></td>
+          <?= number_format($dataToko['biaya_ongkir'], 0, ',', '.'); ?></td>
         <td>Voucher Diskon (%): <?= $keranjang['potongan']; ?>%</td>
         <td>Total Bayar: Rp.
           <?php $bayarDiskon = ($subtotal * ($keranjang['potongan'] / 100)) + $dataToko['biaya_ongkir'];
           $bayar = $subtotal + $dataToko['biaya_ongkir'];
-
-          echo $totalBayar = (isset($keranjang['potongan']) or $keranjang['potongan'] != 0) ? $bayarDiskon : $bayar;
+           $totalBayar = (isset($keranjang['potongan']) or $keranjang['potongan'] != 0) ? $bayarDiskon : $bayar;
+           echo number_format($totalBayar, 0, ',', '.')
           ?></td>
       </tr>
 

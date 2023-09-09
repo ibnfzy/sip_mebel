@@ -12,15 +12,6 @@
         <div class="widget-box widget-plain">
           <div class="center">
             <ul class="stat-boxes">
-              <li style="background-color: lightblue;">
-                <div class="left peity_bar_neutral">
-                  <span>
-                    <i class="fa-solid fa-tags fa-2xl"></i>
-                  </span>
-                  ...
-                </div>
-                <div class="right"> <strong><?= $voucher; ?></strong> Voucher Tersedia </div>
-              </li>
 
               <li style="background-color: lightpink;">
                 <div class="left peity_bar_neutral">

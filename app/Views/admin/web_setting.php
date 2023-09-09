@@ -16,26 +16,16 @@
           </div>
           <div class="widget-content nopadding">
             <form action="<?= base_url('AdmPanel/Settings'); ?>" method="POST" class="form-horizontal">
-              <input type="hidden" name="_method" value="PUT">
               <div class="control-group">
                 <label class="control-label">Alamat Toko :</label>
                 <div class="controls">
-                  <input name="kategori" type="text" class="span11" placeholder=""
-                    value="<?= $data['alamat_toko']; ?>" />
+                  <input name="alamat" type="text" class="span11" placeholder="" value="<?= $data['alamat_toko']; ?>" />
                 </div>
               </div>
               <div class="control-group">
                 <label class="control-label">Kontak Toko :</label>
                 <div class="controls">
-                  <input name="kategori" type="text" class="span11" placeholder=""
-                    value="<?= $data['kontak_toko']; ?>" />
-                </div>
-              </div>
-              <div class="control-group">
-                <label class="control-label">Biaya Ongkir :</label>
-                <div class="controls">
-                  <input name="kategori" type="text" class="span11" placeholder=""
-                    value="<?= $data['biaya_ongkir']; ?>" />
+                  <input name="nomor" type="text" class="span11" placeholder="" value="<?= $data['kontak_toko']; ?>" />
                 </div>
               </div>
               <div class="form-actions">

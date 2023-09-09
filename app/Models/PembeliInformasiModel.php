@@ -12,5 +12,8 @@ class PembeliInformasiModel extends Model
         'id_pembeli',
         'alamat',
         'nomor_hp',
+        'kota',
+        'kec_desa',
+        'kode_pos'
     ];
 }

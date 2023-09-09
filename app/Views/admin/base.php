@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>🏘 Meubel Shop | Admin Panel</title>
+  <title>🏘 Fauzan Meubel | Admin Panel</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/bootstrap.min.css" />
@@ -38,7 +38,9 @@
   <script src="<?= base_url(''); ?>/js/jquery.flot.resize.min.js"></script>
   <script src="<?= base_url(''); ?>/js/jquery.peity.min.js"></script>
   <script src="<?= base_url(''); ?>/js/fullcalendar.min.js"></script>
-
+    <script src="<?= base_url(''); ?>/js/jsPDF-AutoTable-3.5.28/examples/libs/jspdf.umd.js"></script>
+  <script src="<?= base_url(''); ?>/js/jsPDF-AutoTable-3.5.28/dist/jspdf.plugin.autotable.js"></script>
+<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
   <script src="<?= base_url('/'); ?>/toastr/build/toastr.min.js"></script>
   <script src="<?= base_url('/'); ?>/fontawesome-free-6.4.0-web/js/all.min.js"></script>
   <script src="<?= base_url('/'); ?>/js/jquery.dataTables.min.js"></script>

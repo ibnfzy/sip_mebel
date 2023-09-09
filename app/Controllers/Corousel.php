@@ -51,7 +51,6 @@ class Corousel extends BaseController
     {
         $rules = [
             'file' => 'is_image[file]|max_size[file,2048]',
-            'link' => 'required',
             'header' => 'required|min_length[5]|max_length[50]'
         ];
 
@@ -62,7 +61,6 @@ class Corousel extends BaseController
 
         $data = [
             'gambar' => $this->request->getFile('file')->getName(),
-            'link_to' => $this->request->getPost('link'),
             'header' => $this->request->getPost('header')
         ];
 
@@ -100,29 +98,25 @@ class Corousel extends BaseController
         if ($this->request->getFile('file')->isValid()) {
             $rules = [
                 'file' => 'is_image[file]|max_size[file,2048]',
-                'link' => 'required',
                 'header' => 'required|min_length[5]|max_length[50]'
             ];
 
             $data = [
                 'gambar' => $this->request->getFile('file')->getName(),
-                'link_to' => $this->request->getPost('link'),
                 'header' => $this->request->getPost('header')
             ];
         } else {
             $rules = [
-                'link' => 'required',
                 'header' => 'required|min_length[5]|max_length[50]'
             ];
 
             $data = [
-                'link_to' => $this->request->getPost('link'),
                 'header' => $this->request->getPost('header')
             ];
         }
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('AdmPanel/Produk/' . $id . '/edit'))->with('type-status', 'error')
+            return redirect()->to(base_url('AdmPanel/Corousel/' . $id . '/edit'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 

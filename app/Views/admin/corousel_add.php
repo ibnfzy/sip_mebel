@@ -17,15 +17,9 @@
           <div class="widget-content nopadding">
             <form action="<?= base_url('AdmPanel/Corousel'); ?>" method="POST" class="form-horizontal" enctype="multipart/form-data">
               <div class="control-group">
-                <label class="control-label">Header Corousel :</label>
+                <label class="control-label">Text Corousel :</label>
                 <div class="controls">
                   <input name="header" type="text" class="span11" placeholder="" />
-                </div>
-              </div>
-              <div class="control-group">
-                <label class="control-label">Link Halaman :</label>
-                <div class="controls">
-                  <input name="link" type="text" class="span11" placeholder="" />
                 </div>
               </div>
               <div class="control-group">

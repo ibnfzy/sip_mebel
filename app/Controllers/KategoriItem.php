@@ -44,7 +44,7 @@ class KategoriItem extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('AdmPanel/Kategori/new'))->with('type-status', 'error')
+            return redirect()->to(base_url('AdmPanel/KategoriItem/new'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 
@@ -54,7 +54,7 @@ class KategoriItem extends BaseController
 
         $this->kategoriModel->save($data);
 
-        return redirect()->to(base_url('AdmPanel/Kategori'))->with('type-status', 'info')
+        return redirect()->to(base_url('AdmPanel/KategoriItem'))->with('type-status', 'info')
             ->with('message', 'Data berhasil ditambahkan');
     }
 
@@ -78,7 +78,7 @@ class KategoriItem extends BaseController
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('AdmPanel/Kategori/new'))->with('type-status', 'error')
+            return redirect()->to(base_url('AdmPanel/KategoriItem/new'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 
@@ -88,7 +88,7 @@ class KategoriItem extends BaseController
 
         $this->kategoriModel->save($data);
 
-        return redirect()->to(base_url('AdmPanel/Kategori'))->with('type-status', 'info')
+        return redirect()->to(base_url('AdmPanel/KategoriItem'))->with('type-status', 'info')
             ->with('message', 'Data berhasil diperbarui');
     }
 
@@ -96,7 +96,7 @@ class KategoriItem extends BaseController
     {
         $this->kategoriModel->delete($id);
 
-        return redirect()->to(base_url('AdmPanel/Kategori'))->with('type-status', 'info')
+        return redirect()->to(base_url('AdmPanel/KategoriItem'))->with('type-status', 'info')
             ->with('message', 'Data berhasil terhapus');
     }
 }

@@ -38,13 +38,17 @@ class PembeliController extends BaseController
 
     public function index()
     {
-        return view('pembeli/dashboard');
+        return view('pembeli/dashboard', [
+            'data' => $this->itemModel->orderBy('id_item', 'DESC')->paginate(6, 'items'),
+            'pager' => $this->itemModel->pager
+        ]);
     }
 
     public function transaksi()
     {
         $getcart_item = $this->db->table('cart_item')
             ->where('id_pembeli', $_SESSION['id_pembeli'])
+          	->orderBy('id_cart_item', 'DESC')
             ->get()
             ->getResultArray();
 
@@ -65,29 +69,7 @@ class PembeliController extends BaseController
             'status_bayar' => $this->request->getPost('status_bayar')
         ];
 
-        if ($this->request->getPost('id_voucher_pembeli') != null) {
-            $this->voucherPembeli->update($this->request->getPost('id_voucher_pembeli'), [
-                'status' => 'Terpakai'
-            ]);
-        }
-
         $this->cart_itemModel->update($this->request->getPost('id_cart_item'), $data);
-
-        $get = $this->db->query("SELECT * FROM voucher ORDER BY RAND() LIMIT 1")->getFirstRow();
-
-        if (isset($get->potongan)) {
-            $data = [
-                'id_pembeli' => $_SESSION['id_pembeli'],
-                'id_reward' => $get->id_reward,
-                'fullname' => $_SESSION['fullname'],
-                'potongan' => $get->potongan,
-                'status' => 'Belum Terpakai',
-                'up_datetime' => date('Y-m-d H:i:s'),
-            ];
-
-            $this->db->table('voucher_pembeli')->insert($data);
-            return $this->response->setJSON(['msg' => 'Berhasil merubah status bayar']);
-        }
 
         return $this->response->setJSON(['msg' => 'Berhasil merubah status bayar']);
     }
@@ -132,6 +114,8 @@ class PembeliController extends BaseController
         $data = [
             'bukti_bayar' => $this->request->getFile('gambar')->getName(),
             'status_bayar' => 'Menunggu Validasi Bukti Bayar',
+          	'tanggal_upload_bayar' => date('Y-m-d'),
+          	'batas_pembayaran' => null
         ];
 
         if (!$this->request->getFile('gambar')->hasMoved()) {
@@ -164,6 +148,7 @@ class PembeliController extends BaseController
 
     public function add_review()
     {
+        helper('form');
         $get = $this->db->table('cart_item')
             ->select([
                 'cart_item.rowid',
@@ -186,14 +171,15 @@ class PembeliController extends BaseController
 
     public function save_review()
     {
+        helper('form');
         $rules = [
             'id_item' => 'required',
-            'nilai' => 'required|less_than_equal_to[8]',
+            'nilai' => 'required',
             'isi' => 'required',
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('PembeliPanel/Testimoni/new'))->with('type-status', 'error')
+            return redirect()->to(base_url('PembeliPanel/Review/new'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 
@@ -207,15 +193,31 @@ class PembeliController extends BaseController
 
         $this->reviewModel->save($data);
 
-        return redirect()->to(base_url('PembeliPanel/Testimoni'))->with('type-status', 'info')
+        return redirect()->to(base_url('PembeliPanel/Review'))->with('type-status', 'info')
             ->with('message', 'Testimoni berhasil');
+    }
+
+    public function delete_review($id)
+    {
+        $this->reviewModel->delete($id);
+        return redirect()->to(base_url('PembeliPanel/Review'))->with('type-status', 'info')
+            ->with('message', 'Testimoni berhasil Dihapus');
     }
 
     public function setting()
     {
         helper('form');
+        $option = [];
+        $w = 1;
+
+        foreach ($this->db->table('biaya_ongkir')->get()->getResultArray() as $item) {
+            $option[$item['nama_kota']] = $w . '. ' . $item['nama_kota'];
+            $w++;
+        }
+
         return view('pembeli/setting', [
-            'data' => $this->informasiPembeli->where('id_pembeli', $_SESSION['id_pembeli'])->first()
+            'data' => $this->informasiPembeli->where('id_pembeli', $_SESSION['id_pembeli'])->first(),
+            'ongkir' => $option
         ]);
     }
 
@@ -223,36 +225,56 @@ class PembeliController extends BaseController
     {
         helper('form');
         $rules = [
+            'kota' => 'required',
             'alamat' => 'required|min_length[5]|max_length[254]',
             'nomor' => 'required|min_length[10]|max_length[13]',
+            'desa' => 'required',
         ];
 
         if (!$this->validate($rules)) {
-            return redirect()->to(base_url('PembeliPanel/informasi'))->with('type-status', 'error')
+            return redirect()->to(base_url('PembeliPanel/Setting'))->with('type-status', 'error')
                 ->with('dataMessage', $this->validator->getErrors());
         }
 
         $data = [
+            'kota' => $this->request->getPost('kota'),
             'alamat' => $this->request->getPost('alamat'),
             'nomor_hp' => $this->request->getPost('nomor'),
+            'kec_desa' => $this->request->getPost('desa'),
         ];
 
         $this->informasiPembeli->update($id, $data);
 
-        return redirect()->to(base_url('PembeliPanel/informasi'))->with('type-status', 'info')
+        return redirect()->to(base_url('PembeliPanel/Setting'))->with('type-status', 'info')
             ->with('message', 'Data berhasil diperbarui');
     }
 
     public function checkout()
     {
         helper('text');
-        $diskon = (isset($_SESSION['diskon'])) ? $_SESSION['diskon'] : 0;
 
         $subtotal = $_SESSION['subtotal'];
-
-        if (isset($_SESSION['diskon'])) {
-            $subtotal = ($_SESSION['diskon'] / 100) * $_SESSION['subtotal'];
+        $type_reward = 'diskon';
+        $metode = $this->request->getPost('bayar');
+      	$diskon = 0;
+      
+      	if ($this->cart->totalItems() == 1) {
+      		$diskon = 5;    
+        } else if ($this->cart->totalItems() == 2) {
+         	$diskon = 10; 
+        } else if ($this->cart->totalItems() >= 3) {
+         	$type_reward = 'free';
         }
+      
+        $getPembeli = $this->db->table('pembeli_informasi')->where('id_pembeli', $_SESSION['id_pembeli'])->get()->getRowArray();
+        $home = new Home;
+      
+        if (!isset($getPembeli) and $getPembeli['alamat'] == null or $getPembeli['nomor_hp'] == null or $getPembeli['kota'] == null or $getPembeli['kec_desa'] == null) {
+            $home->clear_cart();
+            return redirect()->to(base_url('PembeliPanel/Setting'))->with('type-status', 'info')
+                ->with('message', 'Transaksi Gagal, silahkan lengkapi informasi dahulu');
+        }
+
         if (isset($_SESSION['logged_in_pelanggan']) and $_SESSION['logged_in_pelanggan'] == TRUE) {
             $q = 0;
             $get = [];
@@ -278,34 +300,29 @@ class PembeliController extends BaseController
                     'fullname' => $_SESSION['fullname'],
                     'nama_item' => $item['nama_item'],
                     'total_harga' => $item['total_harga'],
-                    'transaksi_datetime' => date('D, d M Y H:i:s'),
-                    'qty_transaksi' => $item['qty'],
+                    'qty_transactions' => $item['qty'],
                 ];
             }
 
             $dataKeranjang = [
                 'id_pembeli' => session()->get('id_pembeli'),
-                'id_pembeli_voucher' => $_SESSION['id_voucher_pembeli'],
                 'rowid' => $rowid,
                 'total_items' => $this->cart->totalItems(),
                 'potongan' => $diskon,
                 'total_bayar' => $subtotal,
-                'status_bayar' => 'Menunggu Bukti Bayar',
-                'tgl_checkout' => date('Y-m-d')
+                'status_bayar' => ($metode == 'transfer') ? 'Menunggu Bukti Bayar' : 'Diproses',
+                'metode_pembayaran' => ($metode == 'transfer') ? 'Transfer' : 'Cash On Delivery',
+                'tgl_checkout' => date('Y-m-d'),
+              	'batas_pembayaran' => date('Y-m-d', strtotime(date('Y-m-d') . ' +1 day')),
+                'type_reward' => $type_reward,
             ];
 
-            $dataVoucherPembeli = [
-                'status' => 'Proses Pemakaian'
-            ];
-
-            $this->voucherPembeli->update($_SESSION['id_voucher_pembeli'], $dataVoucherPembeli);
             $this->db->table('transactions')->insertBatch($data);
             $this->db->table('cart_item')->insert($dataKeranjang);
 
-            $home = new Home;
             $home->clear_cart();
 
-            return redirect()->to(base_url('PembeliPanel/invoice/' . $rowid));
+            return redirect()->to(base_url('PembeliPanel/Transaksi/' . $rowid));
         } else {
             return $this->response->setJSON([
                 'msg' => 'Anda harus login sebelum checkout'

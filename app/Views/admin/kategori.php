@@ -26,9 +26,10 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($kategori as $item) : ?>
+                <?php $i = 1;
+                foreach ($kategori as $item) : ?>
                   <tr>
-                    <td><?= $item['id_kategori']; ?></td>
+                    <td><?= $i; ?></td>
                     <td><?= $item['nama_kategori']; ?></td>
                     <td>
                       <div class="btn-group btn-group-sm" role="group">
@@ -37,6 +38,7 @@
                       </div>
                     </td>
                   </tr>
+                  <?php $i++; ?>
                 <?php endforeach; ?>
               </tbody>
             </table>
@@ -82,7 +84,7 @@
               }
             }
           }
-          xhr.open('DELETE', 'KategoriItem/' + a)
+          xhr.open('GET', '<?= base_url('AdmPanel/KategoriItemDelete/') ?>' + a)
           xhr.send()
         }
       });

@@ -53,20 +53,41 @@ $routes->group('AdmPanel', ['namespace' => 'App\Controllers'], static function (
     $routes->resource('KategoriItem');
     $routes->resource('Item');
     $routes->resource('Voucher');
+    $routes->get('BiayaOngkir', 'AdmController::biaya_ongkir');
+    $routes->get('BiayaOngkir/new', 'AdmController::add_biaya_ongkir');
+    $routes->get('BiayaOngkir/(:num)', 'AdmController::delete_biaya_ongkir/$1');
+    $routes->post('BiayaOngkir', 'AdmController::store_biaya_ongkir');
+    $routes->get('ItemDelete/(:any)', 'Item::delete/$1');
+    $routes->get('KategoriItemDelete/(:any)', 'KategoriItem::delete/$1');
+    $routes->get('CorouselDelete/(:any)', 'Corousel::delete/$1');
+    $routes->get('GetTransaksi/(:any)', 'AdmController::transaksi_get/$1');
+    $routes->get('ArsipLaporan', 'AdmController::arsip_laporan');
+    $routes->get('ArsipLaporan/new', 'AdmController::add_arsip_laporan');
+    $routes->post('ArsipLaporan', 'AdmController::store_arsip_laporan');
+    $routes->get('ArsipLaporan/(:num)', 'AdmController::edit_arsip_laporan/$1');
+    $routes->post('ArsipLaporan/(:num)', 'AdmController::update_arsip_laporan/$1');
+    $routes->get('ArsipLaporanDelete/(:num)', 'AdmController::delete_arsip_laporan/$1');
+    $routes->get('LaporanTransaksi', 'AdmController::transaksi_laporan');
+    $routes->get('LaporanItem', 'AdmController::item');
+    $routes->get('LaporanPembeli', 'AdmController::pembeli');
+    $routes->get('Laporan', 'AdmController::laporan');
+    $routes->post('Print', 'AdmController::print');
 });
 
 $routes->group('PembeliPanel', ['namespace' => 'App\Controllers'], static function ($routes) {
     $routes->get('/', 'PembeliController::index');
     $routes->get('Transaksi', 'PembeliController::transaksi');
-    $routes->get('Ubah_status_selesai', 'PembeliController::ubah_status');
+    $routes->post('Checkout', 'PembeliController::checkout');
+    $routes->post('Ubah_status_selesai', 'PembeliController::ubah_status');
     $routes->get('Transaksi/(:any)', 'PembeliController::invoice/$1');
     $routes->post('Upload_bukti_bayar/(:any)', 'PembeliController::upload/$1');
     $routes->get('Voucher', 'PembeliController::voucher');
     $routes->get('Review', 'PembeliController::review');
     $routes->get('Review/(:any)', 'PembeliController::add_review/$1');
+    $routes->get('ReviewDelete/(:any)', 'PembeliController::delete_review/$1');
     $routes->post('Review', 'PembeliController::save_review');
     $routes->get('Setting', 'PembeliController::setting');
-    $routes->post('Setting', 'PembeliController::save_setting');
+    $routes->post('Setting/(:any)', 'PembeliController::save_setting/$1');
 });
 
 $routes->group('OwnerPanel', ['namespace' => 'App\Controllers'], static function ($routes) {
@@ -75,10 +96,13 @@ $routes->group('OwnerPanel', ['namespace' => 'App\Controllers'], static function
     $routes->get('Item', 'OwnerController::item');
     $routes->get('Pembeli', 'OwnerController::pembeli');
     $routes->get('Laporan', 'OwnerController::laporan');
-    $routes->get('Print', 'OwnerController::print');
+    $routes->post('Print', 'OwnerController::print');
     $routes->get('Settings', 'OwnerController::setting');
     $routes->get('Settings', 'OwnerController::save_setting');
+    $routes->get('Settings', 'OwnerController::save_setting');
     $routes->resource('Admin');
+    $routes->get('Arsip', 'OwnerController::arsip');
+    $routes->get('Arsip/(:num)', 'OwnerController::viewer/$1');
 });
 
 $routes->group('Auth', ['namespace' => 'App\Controllers'], static function ($routes) {

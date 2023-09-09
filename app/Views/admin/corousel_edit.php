@@ -25,12 +25,6 @@
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label">Link Halaman :</label>
-                <div class="controls">
-                  <input name="link" type="text" class="span11" placeholder="" value="<?= $data['link_to']; ?>" />
-                </div>
-              </div>
-              <div class="control-group">
                 <label class="control-label">Gambar Corousel max file size <=2mb *Mengkosongkan akan menyimpan file
                     lama</label>
                     <div class="controls">

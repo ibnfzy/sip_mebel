@@ -19,50 +19,61 @@
               <thead>
                 <tr>
                   <th>#</th>
+                  <th>ID Invoice</th>
                   <th>Total Item</th>
-                  <th>Voucher Discount (%)</th>
-                  <th>Total Bayar</th>
+                  <th>Jenis Reward</th>
+                  <th>Discount (%)</th>
+                  <th>Total Harga Barang</th>
+                  <th>Tanggal Checkout</th>
+                  <th>Tanggal Bayar</th>
+                  <th>Metode Pembayaran</th>
                   <th>Status</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($cart_item as $item) : ?>
+                <?php $i = 1; foreach ($cart_item as $item) : ?>
                 <tr>
+                  <td><?= $i; ?></td>
                   <td><?= $item['id_cart_item']; ?></td>
                   <td><?= $item['total_items']; ?></td>
+                  <td><?= ($item['type_reward'] == 'free') ? 'Free 1 Meja' : 'Diskon'; ?></td>
                   <td><?= $item['potongan']; ?>%</td>
-                  <td><?= $item['total_bayar']; ?></td>
+                  <td>Rp. <?= number_format($item['total_bayar'], 0, ',', '.'); ?></td>
+                  <td><?= $item['tgl_checkout']; ?></td>
+                  <td><?= ($item['tanggal_upload_bayar'] == null or $item['status_bayar'] == 'Menunggu Bukti Bayar') ? 'Belum Bayar' : $item['tanggal_upload_bayar']; ?></td>
+                  <td><?= $item['metode_pembayaran']; ?></td>
                   <td><?= $item['status_bayar']; ?></td>
                   <td>
 
                     <div class="btn-group btn-group-sm" role="group">
                       <?php if ($item['status_bayar'] == 'Dalam Pengiriman') : ?>
 
-                      <a href="#"
-                        onclick="statusDiterima('<?= $item['id_cart_item'] ?>', '<?= $item['id_voucher_pembeli'] ?>')"
-                        type="button" class="btn bg-success"><i class="fa-solid fa-circle-check"></i></a>
+                      <a href="#" onclick="statusDiterima('<?= $item['id_cart_item'] ?>')" type="button"
+                        class="btn btn-success"><i class="fa-solid fa-circle-check"></i> Barang Diterima</a>
 
                       <?php endif ?>
 
                       <?php if ($item['status_bayar'] == 'Selesai') : ?>
 
-                      <a href="<?= base_url('PembeliPanel/Review'); ?>" type="button" class="btn bg-warning"><i
-                          class="fa-solid fa-star"></i></a>
+                      <a href="<?= base_url('PembeliPanel/Review'); ?>" type="button" class="btn btn-warning"><i
+                          class="fa-solid fa-star"></i> Beri Review</a>
 
                       <?php endif ?>
                       <a href="<?= base_url('PembeliPanel/Transaksi/' . $item['rowid']); ?>" type="button"
-                        class="btn btn-info"><i class="fa-solid fa-file-invoice"></i></a>
+                        class="btn btn-info"><i class="fa-solid fa-file-invoice"></i> Lihat Invoice</a>
                     </div>
                   </td>
                 </tr>
+                <?php $i++ ;?>
                 <?php endforeach; ?>
               </tbody>
             </table>
           </div>
         </div>
       </div>
-
+    </div>
+    <!-- <div class="row-fluid">
       <div class="span12">
         <div class="widget-box">
           <div class="widget-title">
@@ -86,6 +97,7 @@
                   <td><?= $item['id_transactions']; ?></td>
                   <td><?= $item['nama_item']; ?></td>
                   <td><?= $item['qty_transactions']; ?></td>
+                  <td>Rp. <?= number_format($item['total_harga'], 0, ',', '.'); ?></td>
                   <td><?= $item['transactions_datetime']; ?></td>
                 </tr>
                 <?php endforeach; ?>
@@ -94,7 +106,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div> -->
   </div>
 </div>
 
@@ -103,7 +115,7 @@
 <?= $this->section('script'); ?>
 
 <script>
-const statusDiterima = (rowid, id_voucher = null) => {
+const statusDiterima = (rowid) => {
   swal.fire({
       title: "Konfirmasi produk telah diterima?",
       text: "Status akan berubah",
@@ -115,6 +127,7 @@ const statusDiterima = (rowid, id_voucher = null) => {
     .then((willDelete) => {
       if (willDelete) {
         var xhr = new XMLHttpRequest()
+        var formData = new FormData()
         xhr.onreadystatechange = function() {
           var DONE = 4; // readyState 4 means the request is done.
           var OK = 200; // status 200 is a successful return.
@@ -133,8 +146,10 @@ const statusDiterima = (rowid, id_voucher = null) => {
             }
           }
         }
-        xhr.open('POST', 'Ubah_status_selesai/')
-        xhr.send('status_bayar=Selesai&id_cart_item=' + rowid + '&id_voucher_pembeli=' + id_voucher)
+        formData.append('status_bayar', 'Selesai')
+        formData.append('id_cart_item', rowid)
+        xhr.open('POST', '<?= base_url('')?>PembeliPanel/Ubah_status_selesai')
+        xhr.send(formData)
       }
     });
 };

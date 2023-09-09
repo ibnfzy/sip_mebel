@@ -20,18 +20,21 @@ class OwnerController extends BaseController
     public function index()
     {
         $db = \Config\Database::connect();
+      
+      
 
         $voucher    = $db->table('voucher')->get()->getResultArray();
         $pembeli    = $db->table('pembeli')->get()->getResultArray();
         $itemstok   = $db->table('item')->select('sum(stok_item) as total_tersedia')->get()->getRowArray();
         $verifikasi = $db->table('cart_item')->where('status_bayar', 'Menunggu Validasi Bukti Bayar')->get()->getResultArray();
 
-        return view('owner/dashboard', [
-            'voucher'       => count($voucher),
-            'pembeli'       => count($pembeli),
-            'itemstok'      => $itemstok['total_tersedia'],
-            'verifikasi'    => count($verifikasi)
-        ]);
+      return redirect()->to(base_url('OwnerPanel/Arsip'));
+        // return view('owner/dashboard', [
+        //    'voucher'       => count($voucher),
+        //    'pembeli'       => count($pembeli),
+        //    'itemstok'      => $itemstok['total_tersedia'],
+        //    'verifikasi'    => count($verifikasi)
+        // ]);
     }
 
     public function transaksi()
@@ -95,7 +98,6 @@ class OwnerController extends BaseController
         $rules = [
             'alamat' => 'required|min_length[5]|max_length[254]',
             'nomor' => 'required|min_length[10]|max_length[13]',
-            'ongkir' => 'required|min_length[4]|max_length[7]',
         ];
 
         if (!$this->validate($rules)) {
@@ -106,12 +108,25 @@ class OwnerController extends BaseController
         $data = [
             'alamat_toko' => $this->request->getPost('alamat'),
             'kontak_toko' => $this->request->getPost('nomor'),
-            'biaya_ongkir' => $this->request->getPost('ongkir'),
         ];
 
         $this->settingsModel->update('01', $data);
 
         return redirect()->to(base_url('OwnerPanel/Settings'))->with('type-status', 'info')
             ->with('message', 'Data berhasil diperbarui');
+    }
+
+    public function arsip()
+    {
+        return view('owner/arsip', [
+            'data' => $this->db->table('arsip_laporan')->get()->getResultArray()
+        ]);
+    }
+
+    public function viewer($id)
+    {
+        return view('owner/pdf_viewer', [
+            'item' => $this->db->table('arsip_laporan')->where('id_arsip_laporan')->get()->getRowArray()
+        ]);
     }
 }

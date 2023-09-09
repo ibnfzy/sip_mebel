@@ -18,7 +18,7 @@ class PembeliLogin extends BaseController
 
     public function index()
     {
-        return view('login/user_login');
+        return view('login/pembeli_login');
     }
 
     public function auth()
@@ -28,6 +28,7 @@ class PembeliLogin extends BaseController
         $username = $this->request->getPost('username');
         $password = $this->request->getPost('password');
 
+
         $data = $this->pembeliModel->where('username', $username)->first();
 
         if ($data) {
@@ -35,6 +36,7 @@ class PembeliLogin extends BaseController
             $id = $data['id_pembeli'];
 
             $verify = password_verify($password ?? '', $password_data);
+            // dd($verify);
 
             if ($verify) {
                 $sessionData = [
@@ -77,7 +79,18 @@ class PembeliLogin extends BaseController
 
     public function registration()
     {
-        return view('login/pembeli_registration');
+       helper('form');
+        $option = [];
+        $w = 1;
+
+        foreach ($this->db->table('biaya_ongkir')->get()->getResultArray() as $item) {
+            $option[$item['nama_kota']] = $w . '. ' . $item['nama_kota'];
+            $w++;
+        }
+      
+        return view('login/pembeli_registration', [
+            'ongkir' => $option
+        ]);
     }
 
     public function signup()
@@ -86,7 +99,11 @@ class PembeliLogin extends BaseController
             'fullname' => 'required|min_length[5]|max_length[30]',
             'username' => 'required|min_length[5]|max_length[16]|is_unique[pembeli.username]',
             'password' => 'required|min_length[5]|max_length[16]',
-            'confirmPassword' => 'required|matches[password]'
+            'confirmPassword' => 'required|matches[password]',
+          'kota' => 'required',
+            'alamat' => 'required|min_length[5]|max_length[254]',
+            'nomor' => 'required|min_length[10]|max_length[13]',
+            'desa' => 'required',
         ];
 
         if (!$this->validate($rules)) {
@@ -111,7 +128,12 @@ class PembeliLogin extends BaseController
         ];
 
         $dataInfo = [
-            'id_pembeli' => $getUser['id_pembeli']
+            'id_pembeli' => $getUser['id_pembeli'],
+          'kota' => $this->request->getPost('kota'),
+            'alamat' => $this->request->getPost('alamat'),
+            'nomor_hp' => $this->request->getPost('nomor'),
+            'kec_desa' => $this->request->getPost('desa'),
+            'kode_pos' => $this->request->getPost('kode_pos'),
         ];
 
         $this->db->table('voucher_sistem')->insert($dataV);

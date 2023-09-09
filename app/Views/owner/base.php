@@ -2,13 +2,15 @@
 <html lang="en">
 
 <head>
-  <title>🏘 Meubel Shop | Owner Panel</title>
+  <title>🏘 Fauzan Meubel | Owner Panel</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/bootstrap.min.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/bootstrap-responsive.min.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/fullcalendar.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/fontawesome-free-6.4.0-web/css/all.min.css" />
+  <!-- <script src="https://unpkg.com/jspdf"></script> -->
+  <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.debug.js"></script> -->
   <script src="<?= base_url(''); ?>/swal/dist/sweetalert2.min.js"></script>
   <link rel="stylesheet" href="<?= base_url(''); ?>/swal/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="<?= base_url('/'); ?>/toastr/build/toastr.min.css">
@@ -38,6 +40,8 @@
   <script src="<?= base_url(''); ?>/js/jquery.flot.resize.min.js"></script>
   <script src="<?= base_url(''); ?>/js/jquery.peity.min.js"></script>
   <script src="<?= base_url(''); ?>/js/fullcalendar.min.js"></script>
+  <script src="<?= base_url(''); ?>/js/jsPDF-AutoTable-3.5.28/examples/libs/jspdf.umd.js"></script>
+  <script src="<?= base_url(''); ?>/js/jsPDF-AutoTable-3.5.28/dist/jspdf.plugin.autotable.js"></script>
 
   <script src="<?= base_url('/'); ?>/toastr/build/toastr.min.js"></script>
   <script src="<?= base_url('/'); ?>/fontawesome-free-6.4.0-web/js/all.min.js"></script>

@@ -10,13 +10,15 @@ class CartItemModel extends Model
     protected $primaryKey       = 'id_cart_item';
     protected $allowedFields    = [
         'id_pembeli',
-        'id_pembeli_voucher',
         'rowid',
         'total_items',
         'potongan',
         'total_bayar',
         'bukti_bayar',
         'status_bayar',
+        'metode_pembayaran',
+        'batas_pembayaran',
+        'tanggal_upload_bayar',
         'tgl_checkout',
     ];
 }

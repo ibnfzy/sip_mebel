@@ -3,6 +3,7 @@
 namespace Config;
 
 use App\Filters\AdminAuth;
+use App\Filters\Cors;
 use App\Filters\OwnerAuth;
 use App\Filters\PembeliAuth;
 use CodeIgniter\Config\BaseConfig;
@@ -19,14 +20,15 @@ class Filters extends BaseConfig
      * make reading things nicer and simpler.
      */
     public array $aliases = [
-        'csrf'          => CSRF::class,
-        'toolbar'       => DebugToolbar::class,
-        'honeypot'      => Honeypot::class,
-        'invalidchars'  => InvalidChars::class,
+        'csrf' => CSRF::class,
+        'toolbar' => DebugToolbar::class,
+        'honeypot' => Honeypot::class,
+        'invalidchars' => InvalidChars::class,
         'secureheaders' => SecureHeaders::class,
-        'adminauth'     => AdminAuth::class,
-        'ownerauth'     => OwnerAuth::class,
-        'pembeliauth'   => PembeliAuth::class,
+        'adminauth' => AdminAuth::class,
+        'ownerauth' => OwnerAuth::class,
+        'pembeliauth' => PembeliAuth::class,
+        'cors' => Cors::class,
     ];
 
     /**
@@ -38,6 +40,7 @@ class Filters extends BaseConfig
             // 'honeypot',
             // 'csrf',
             // 'invalidchars',
+            'cors'
         ],
         'after' => [
             'toolbar',

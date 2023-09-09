@@ -12,10 +12,13 @@
         <div class="widget-box">
           <div class="widget-title">
             <span class="icon"><i class="icon-th"></i></span>
-            <h5></h5>
+            <button id="print" style="margin-left: 20px;" class="btn btn-secondary"><i class="fa-solid fa-print"></i>
+              Print</button>
+            <button onclick="javascript:demoFromHTML();" style="margin-left: 20px;" class="btn btn-danger"><i class="fa-solid fa-file-pdf"></i>
+              Download PDF</button>
           </div>
           <div class="widget-content nopadding">
-            <table class="table table-bordered data-table-buttons">
+            <table id="printTable" class="table table-bordered data-table-buttons">
               <thead>
                 <tr>
                   <th scope="col">#</th>
@@ -29,11 +32,11 @@
                 foreach ($data as $item) : ?>
                   <?php $db = \Config\Database::connect();
                   $getBarang = $db->table('pembeli')->where('id_pembeli', $item['id_pembeli'])->get(1)->getRowArray();
-                  // dd($getBarang);
+                  // dd($getBarang['fullname']);
                   ?>
                   <tr>
                     <th><?= $i++; ?></th>
-                    <td><?= $getBarang->fullname; ?></td>
+                    <td><?= $getBarang['fullname']; ?></td>
                     <td><?= $item['total_transaksi']; ?></td>
                     <td><?= $item['transactions_datetime']; ?></td>
                   </tr>
@@ -47,4 +50,29 @@
   </div>
 </div>
 
+<?= $this->endSection(); ?>
+
+<?= $this->section('script'); ?>
+<script>
+  function printData() {
+    var divToPrint = document.getElementById("printTable");
+    newWin = window.open("");
+    newWin.document.write(divToPrint.outerHTML);
+    newWin.print();
+    newWin.close();
+  }
+
+  const btn = document.getElementById("print");
+  btn.addEventListener('click', () => printData())
+
+  function demoFromHTML() {
+    var doc = new jspdf.jsPDF()
+
+    doc.autoTable({
+      html: '#printTable'
+    })
+
+    doc.save('laporan.pdf')
+  }
+</script>
 <?= $this->endSection(); ?>

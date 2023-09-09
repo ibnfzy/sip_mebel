@@ -15,7 +15,8 @@
             <h5>Edit Item</h5>
           </div>
           <div class="widget-content nopadding">
-            <form action="<?= base_url('AdmPanel/Item/' . $item['id_item']); ?>" method="POST" class="form-horizontal" enctype="multipart/form-data">
+            <form action="<?= base_url('AdmPanel/Item/' . $item['id_item']); ?>" method="POST" class="form-horizontal"
+              enctype="multipart/form-data">
               <input type="hidden" name="_method" value="PUT">
               <div class="control-group">
                 <label class="control-label">Nama Item :</label>
@@ -34,7 +35,8 @@
               <div class="control-group">
                 <label class="control-label">Stok Item :</label>
                 <div class="controls">
-                  <input name="stok_produk" type="number" class="span11" value="<?= $item['harga_item']; ?>" placeholder="" />
+                  <input name="stok_item" type="number" class="span11" value="<?= $item['stok_item']; ?>"
+                    placeholder="" />
                 </div>
               </div>
               <div class="control-group">
@@ -44,7 +46,8 @@
                 </div>
               </div>
               <div class="control-group">
-                <label class="control-label">Gambar Item max file size <=2mb *Mengkosongkan akan menyimpan file lama</label>
+                <label class="control-label">Gambar Item max file size <=2mb *Mengkosongkan akan menyimpan file
+                    lama</label>
                     <div class="controls">
                       <?= form_input('gambar', '', [
                         'accept' => 'image/*'
@@ -54,7 +57,9 @@
               <div class="control-group">
                 <label class="control-label">Deskripsi Item</label>
                 <div class="controls">
-                  <?= form_textarea('desc', $item['desc_item']); ?>
+                  <?= form_textarea('desc', $item['desc_item'], [
+						'id' => 'editor'
+					]); ?>
                 </div>
               </div>
               <div class="form-actions">
@@ -68,4 +73,10 @@
   </div>
 </div>
 
+<?= $this->endSection(); ?>
+  
+  <?= $this->section('script'); ?>
+  <script>
+  CKEDITOR.replace( 'editor' );
+  </script>
 <?= $this->endSection(); ?>

@@ -1,22 +1,8 @@
 $(document).ready(function () {
 
   $('.data-table').dataTable({"bJQueryUI": true, "sPaginationType": "full_numbers", "sDom": '<""l>t<"F"fp>'});
-  $('.data-table-buttons').dataTable({
-    "bJQueryUI": true,
-    "sPaginationType": "full_numbers",
-    "sDom": '<""l>t<"F"fp>',
-    "buttons": [
-      "copy",
-      "csv",
-      "excel",
-      "pdf",
-      "print",
-      "colvis"
-    ]
-  }).buttons().container().appendTo('#data-table-buttons_wrapper .col-md-6:eq(0)');
 
-
-  $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
+  // $('input[type=checkbox],input[type=radio],input[type=file]').uniform();
 
   $('select').select2();
 

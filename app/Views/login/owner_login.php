@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>🏘 Meubel Shop</title>
+  <title>🏘 Fauzan Meubel</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/bootstrap.min.css" />
@@ -12,9 +12,9 @@
 
 <body>
   <div id="loginbox">
-    <form id="loginform" class="form-vertical" method="POST" action="<?= base_url('Auth/Pemilik'); ?>">
+    <form id="loginform" class="form-vertical" method="POST" action="<?= base_url('Auth/Owner'); ?>">
       <div class="control-group normal_text">
-        <h3>🏘 <b>Meubel</b> Shop</h3>
+        <h3>FORM LOGIN OWNER</h3>
       </div>
       <div class="control-group">
         <div class="controls">

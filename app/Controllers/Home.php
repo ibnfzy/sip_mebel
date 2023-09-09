@@ -66,7 +66,10 @@ class Home extends BaseController
 
     public function add_item()
     {
-        $get = $this->itemModel->find($this->request->getPost('id'));
+        // $get = $this->itemModel->find($this->request->getPost('id'));
+        $get = $this->db->table('item')->where('id_item', $this->request->getPost('id'))->get()->getRowArray();
+
+        // dd($this->request->getPost('id'));
 
         $this->cart->insert([
             'id' => $get['id_item'],
@@ -84,7 +87,7 @@ class Home extends BaseController
     {
         $this->cart->remove($rowId);
 
-        return redirect()->to(base_url('cart'));
+        return redirect()->to(base_url('Cart'));
     }
 
     public function clear_cart()
@@ -95,7 +98,7 @@ class Home extends BaseController
         $_SESSION['diskon'] = 0;
         $_SESSION['id_diskon'] = null;
 
-        return redirect()->to(base_url('cart'));
+        return redirect()->to(base_url('Cart'));
     }
 
     public function update_cart()
@@ -118,11 +121,11 @@ class Home extends BaseController
         }
 
         if ($status == false) {
-            return redirect()->to(base_url('cart'))->with('type-status', 'error')
+            return redirect()->to(base_url('Cart'))->with('type-status', 'error')
                 ->with('message', 'Kuantitas item melebihi stok');
         }
 
-        return redirect()->to(base_url('cart'))->with('type-status', 'success')
+        return redirect()->to(base_url('Cart'))->with('type-status', 'success')
             ->with('message', 'Berhasil diperbaruhi');
     }
 

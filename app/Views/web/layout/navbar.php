@@ -19,19 +19,34 @@ $(document).ready(function() {
 <div class="logo_products">
   <div class="container">
     <div class="w3ls_logo_products_left">
-      <h1><a href="<?= base_url('/'); ?>"><span>🏘 Meubel </span> Shop</a></h1>
+      <h1><a href="<?= base_url('/'); ?>"><span>🏘 Fauzan </span> Meubel</a></h1>
     </div>
     <div class="w3ls_logo_products_left1">
       <ul class="special_items">
         <li><a href="<?= base_url('/'); ?>">Home</a><i>/</i></li>
-        <li><a href="<?= base_url('/Item'); ?>">Item Katalog</a><i></i></li>
+        <li><a href="<?= base_url('/Item'); ?>">Item Katalog</a><i>/</i></li>
+        <li><a href="<?= base_url('PembeliPanel'); ?>">
+           <?php if (isset($_SESSION['logged_in_pelanggan']) and $_SESSION['logged_in_pelanggan'] == TRUE) : ?>
+            Customer Panel
+            <?php else : ?>
+            Login
+            <?php endif ?>
+          </a><i></i></li>
       </ul>
     </div>
     <div class="w3ls_logo_products_left1">
       <ul class="phone_email">
-        <li><a href="<?= base_url('Cart'); ?>"><i class="fa-solid fa-cart-shopping"></i> Keranjang</a> </li>
-        <li><i class="fa-solid fa-user"></i><a href="<?= base_url('PembeliPanel'); ?>"> Login</a>
-        </li>
+        <!--
+<li><a href="<?= base_url('Cart'); ?>"><i class="fa-solid fa-cart-shopping"></i> Keranjang</a> </li>
+        <li><i class="fa-solid fa-user"></i><a href="<?= base_url('PembeliPanel'); ?>">
+            <?php if (isset($_SESSION['logged_in_pelanggan']) and $_SESSION['logged_in_pelanggan'] == TRUE) : ?>
+            Customer Panel
+            <?php else : ?>
+            Login
+            <?php endif ?>
+          </a>
+        </li> 
+-->
       </ul>
     </div>
     <div class="clearfix"> </div>
@@ -84,10 +99,6 @@ $(document).ready(function() {
                 style="text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; color: #84C639; -webkit-font-smoothing: antialiased; font-weight: bold;">
                 <?= $item['header']; ?></h3>
               <div class="more">
-                <?php if ($item['link_to'] != '') : ?>
-                <a href="<?= $item['link_to'] ?>" class="button--saqui button--round-l button--text-thick"
-                  data-text="Lihat detail">Lihat detail</a>
-                <?php endif ?>
               </div>
             </div>
           </li>

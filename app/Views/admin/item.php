@@ -29,21 +29,23 @@
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($items as $item) : ?>
+                <?php $i = 1;
+                foreach ($items as $item) : ?>
                   <tr>
-                    <td><?= $item['id_item']; ?></td>
+                    <td><?= $i; ?></td>
                     <td><img src="<?= base_url('uploads/' . $item['gambar_item']); ?>" alt="Gambar item <?= $item['nama_item']; ?>" width="100">
                       <?= $item['nama_item']; ?></td>
                     <td><?= $item['kategori_item']; ?></td>
                     <td><?= $item['stok_item']; ?></td>
-                    <td>Rp. <?= $item['harga_item']; ?></td>
+                    <td>Rp. <?= number_format($item['harga_item'], 0, ',', '.'); ?></td>
                     <td>
                       <div class="btn-group btn-group-lg" role="group">
-                        <a href="<?= base_url('AdmPanel/item/' . $item['id_item'] . '/edit'); ?>" type="button" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                        <a href="<?= base_url('AdmPanel/Item/' . $item['id_item'] . '/edit'); ?>" type="button" class="btn btn-info"><i class="fa fa-edit"></i></a>
                         <button onclick="deleteData('<?= $item['id_item']; ?>')" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
                       </div>
                     </td>
                   </tr>
+                  <?php $i++; ?>
                 <?php endforeach; ?>
               </tbody>
             </table>
@@ -71,6 +73,7 @@
       .then((willDelete) => {
         if (willDelete) {
           var xhr = new XMLHttpRequest()
+          var formData = new FormData()
           xhr.onreadystatechange = function() {
             var DONE = 4; // readyState 4 means the request is done.
             var OK = 200; // status 200 is a successful return.
@@ -89,7 +92,7 @@
               }
             }
           }
-          xhr.open('DELETE', 'Item/' + a)
+          xhr.open('GET', 'ItemDelete/' + a)
           xhr.send()
         }
       });

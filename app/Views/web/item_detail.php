@@ -91,7 +91,7 @@
         </div>
         <div class="snipcart-item block">
           <div class="snipcart-thumb agileinfo_single_right_snipcart">
-            <h4>Rp. <?= $data['harga_item']; ?> - Stok : <?= $data['stok_item']; ?></h4>
+            <h4>Rp. <?= number_format($data['harga_item'], 0, ',', '.'); ?> - Stok : <?= $data['stok_item']; ?></h4>
           </div>
           <div class="snipcart-details agileinfo_single_right_details">
             <form action="#" method="post">
@@ -105,7 +105,8 @@
                 <input type="hidden" name="currency_code" value="USD" />
                 <input type="hidden" name="return" value=" " />
                 <input type="hidden" name="cancel_return" value=" " />
-                <input onclick="add_item('<?= $data['id_item'] ?>', <?= $data['stok_item'] ?>)" type="button" name="add"
+                <input <?= ($data['nama_item'] == 'Meja') ? 'disabled' : ''; ?>
+                  onclick="add_item('<?= $data['id_item'] ?>', <?= $data['stok_item'] ?>)" type="button" name="add"
                   value="+ Keranjang" class="button" />
               </fieldset>
             </form>
@@ -201,15 +202,17 @@ function add_item(id, stok) {
     .then((willLogin) => {
       if (willLogin.isConfirmed) {
         var xhr = new XMLHttpRequest()
+        var data = new FormData()
         xhr.onreadystatechange = function() {
           var DONE = 4; // readyState 4 means the request is done.
           var OK = 200; // status 200 is a successful return.
           if (xhr.readyState === DONE) {
             if (xhr.status === OK) {
+              console.log('s: ' + xhr.response); // An error occurred during the request.
               swal.fire("Item berhasil masuk ke Keranjang, pergi ke halaman Keranjang?", {
                 icon: "success",
               }).then(() => {
-                window.location.reload()
+                window.location.replace('/Cart')
               }) // 'This is the returned text.'
             } else {
               swal.fire("Terjadi kesalahan pada AJAX, dengan error status: " + xhr.status, {
@@ -219,8 +222,9 @@ function add_item(id, stok) {
             }
           }
         }
+        data.append('id', id)
         xhr.open('POST', '/add_item')
-        xhr.send('id=' + parseInt(id))
+        xhr.send(data)
 
       } else {
         swal.fire("Item tidak ditambahkan ke Keranjang!");

@@ -11,12 +11,18 @@
   <!-- <link rel="icon" href="./images/favicon.png" type="image/x-icon" /> -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+  <link rel="stylesheet" href="<?= base_url(''); ?>/fontawesome-free-6.4.0-web/css/all.min.css" />
   <!-- Invoice styling -->
+  <script src="<?= base_url(''); ?>/swal/dist/sweetalert2.min.js"></script>
+  <link rel="stylesheet" href="<?= base_url(''); ?>/swal/dist/sweetalert2.min.css">
+  <link rel="stylesheet" href="<?= base_url('/'); ?>/toastr/build/toastr.min.css">
   <style>
   body {
     font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
     text-align: center;
     color: #777;
+    background: rgb(238, 174, 202);
+    background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
   }
 
   body h1 {
@@ -48,6 +54,7 @@
     line-height: 24px;
     font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
     color: #555;
+    background-color: white;
   }
 
   .invoice-box table {
@@ -120,20 +127,24 @@
 </head>
 
 <body>
+  <?php $db = \Config\Database::connect(); ?>
+  <?php $get = $db->table('biaya_ongkir')->where('nama_kota', $datapembeli['kota'])->get()->getRowArray(); ?>
   <div class="invoice-box">
     <table>
       <tr class="top">
-        <td colspan="2">
+        <td colspan="3">
           <table>
             <tr>
               <td class="title">
                 <!-- <img src="./images/logo.png" alt="Company logo" style="width: 100%; max-width: 300px" /> -->
-                <button onclick="history.back()" class="btn btn-primary" type="button">Kembali</button>
+                <button onclick="history.back()" class="btn btn-primary" type="button"><i
+                    class="fa-solid fa-arrow-left"></i> Kembali</button>
               </td>
 
               <td>
                 Invoice #: <?= $cart_item['id_cart_item']; ?><br />
                 Created: <?= $cart_item['tgl_checkout']; ?><br />
+                Batas Pembayaran: <?= ($cart_item['batas_pembayaran'] != null) ? $cart_item['batas_pembayaran'] : 'Sudah Mengupload Bukti Bayar' ?>
               </td>
             </tr>
           </table>
@@ -141,31 +152,33 @@
       </tr>
 
       <tr class="information">
-        <td colspan="2">
+        <td colspan="7">
           <table>
             <tr>
-              <td>
-                🏘 Meubel Shop.<br />
+              <td colspan="3">
+                🏘 Fauzan Meubel.<br />
                 <?= $dataToko['alamat_toko']; ?> <br>
                 <?= $dataToko['kontak_toko']; ?>
               </td>
 
+              <td></td>
+
               <td>
                 <?= $_SESSION['fullname']; ?>.<br />
-                <?= $dataUser['alamat']; ?><br />
-                <?= $dataUser['nomor_hp']; ?>
+                <?= $get['nama_kota']; ?>, <?= $datapembeli['kec_desa']; ?> <?= $datapembeli['alamat']; ?><br />
+                <?= $datapembeli['nomor_hp']; ?>
               </td>
             </tr>
           </table>
         </td>
       </tr>
 
-
       <tr class="heading">
+        <td>#</td>
         <td>Nama Item</td>
         <td>Kuantitas</td>
         <td>Total Harga</td>
-        <td>Tanggal Transaksi</td>
+        <td>Tanggal Order</td>
       </tr>
 
       <?php $i = 1;
@@ -176,62 +189,81 @@
         <td><?= $i++; ?></td>
         <td><?= $item['nama_item']; ?></td>
         <td><?= $item['qty_transactions']; ?></td>
-        <td>Rp. <?= $item['total_harga']; ?></td>
+        <td>Rp. <?= number_format($item['total_harga'], 0, ',', '.'); ?></td>
         <td><?= $item['transactions_datetime']; ?></td>
       </tr>
       <?php endforeach ?>
 
 
       <tr class="total">
-        <td>Subtotal: Rp. <?= $subtotal = array_sum($total); ?></td>
-        <td>Biaya Ongkir: Rp.
-          <?= $dataToko['biaya_ongkir']; ?></td>
-        <td>Voucher Diskon (%): <?= $cart_item['potongan']; ?>%</td>
-        <td>Total Bayar: Rp.
-          <?php $bayarDiskon = ($subtotal * ($cart_item['potongan'] / 100)) + $dataToko['biaya_ongkir'];
-          $bayar = $subtotal + $dataToko['biaya_ongkir'];
+        <td colspan="3">Subtotal: Rp. <?php $subtotal = array_sum($total);
+                                      echo number_format($subtotal, 0, ',', '.') ?></td>
+        <td colspan="3">Diskon (%): <?= $cart_item['potongan']; ?>%</td>
+      </tr>
 
-          echo $totalBayar = (isset($cart_item['potongan']) or $cart_item['potongan'] != 0) ? $bayarDiskon : $bayar;
+      <tr class="total">
+        <td colspan="3">Biaya Ongkir: Rp.
+          <?= number_format($get['biaya'], 0, ',', '.'); ?></td>
+        <td colspan="3">Total Bayar: Rp.
+          <?php $bayarDiskon = ($subtotal - ($subtotal * ($cart_item['potongan'] / 100))) + $get['biaya'];
+          $bayar = $subtotal + $get['biaya'];
+
+          $totalBayar = ($cart_item['potongan'] != 0) ? $bayarDiskon : $bayar;
+          echo number_format($totalBayar, 0, ',', '.')
           ?></td>
       </tr>
 
       <tr class="total">
-        <td>Status Pembayaran : <?= $cart_item['status_bayar']; ?></td>
-        <td><button class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Upload Bukti
-            Bayar</button> </td>
-        <td><a type="button" href="" class="btn btn-success"><svg xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 448 512">
-              <!--! Font Awesome Pro 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
-              <path
-                d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
-            </svg> Hubungi Toko</a> </td>
+        <td colspan="3">Status Pembayaran : <?= $cart_item['status_bayar']; ?></td>
+        <td colspan="3">Metode Pembayaran : <?= $cart_item['metode_pembayaran']; ?></td>
+      </tr>
+      <tr>
+        <td>Jenis Reward : <?= ($cart_item['type_reward'] == 'free') ? 'Free 1 Meja' : 'Diskon'; ?></td>
       </tr>
     </table>
+    <table>
+      <tr>
+        <td>Silahkan menyelesaikan transaksi dengan mengirim pembayaran dengan nominal Rp. <?= number_format($totalBayar, 0, ',', '.') ?> ke BANK XYZ 123456789 A/N Wulan</td>
+      </tr>
+    </table>
+    <hr>
+    <div class="row">
+      <div class="col-4">
+        <!-- ($cart_item['metode_pembayaran'] == 'Transfer') ? '' : 'disabled' -->
+        <button <?= ($cart_item['status_bayar'] == 'GAGAL') ? 'disabled' : '' ?> class="btn btn-primary"
+          data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="fa-solid fa-upload"></i> Upload Bukti
+          Bayar</button>
+      </div>
+      <div class="col-4"> <a type="button" target="_blank"
+          href="https://wa.me/<?= str_replace('08', '628', $dataToko['kontak_toko']); ?>" class="btn btn-success"><i
+            class="fa-brands fa-whatsapp"></i> Hubungi
+          Toko</a></div>
+      <div class="col-4"><a type="button" href="javascript::void" onclick="window.print()" class="btn btn-secondary"><i
+            class="fa-solid fa-print"></i> Print</a>
+      </div>
+    </div>
   </div>
 
   <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Upload Bukti Pembayaran</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Upload Bukti Bayar *Max <= 2Mb</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <form action="<?= base_url('PembeliPanel/Upload_bukti_bayar/' . $cart_item['id_cart_item']); ?>" method="post"
           enctype="multipart/form-data">
           <div class="modal-body">
             <div class="mb-3">
-              <label for="exampleInputEmail1" class="form-label">Bukti Bayar <span class="text-danger">*Max ukuran file
-                  2mb</label>
-              <input type="file" class="form-control" id="file" name="gambar" accept="image/*">
-              <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+              <!-- <label for="exampleFormControlInput1" class="form-label">Email address</label> -->
+              <input type="file" class="form-control" name="gambar" id="exampleFormControlInput1" accept="image/*">
             </div>
+
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="submit" class="btn btn-primary">Upload</button>
           </div>
         </form>
@@ -239,9 +271,13 @@
     </div>
   </div>
 
+
+  <script src="<?= base_url(''); ?>/js/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
   </script>
+  <script src="<?= base_url('/'); ?>/toastr/build/toastr.min.js"></script>
+  <script src="<?= base_url('/'); ?>/fontawesome-free-6.4.0-web/js/all.min.js"></script>
 </body>
 
 </html>

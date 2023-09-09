@@ -33,7 +33,7 @@
               <div class="control-group">
                 <label class="control-label">Stok Item :</label>
                 <div class="controls">
-                  <input name="stok_produk" type="number" class="span11" value="1" placeholder="" />
+                  <input name="stok_item" type="number" class="span11" value="1" placeholder="" />
                 </div>
               </div>
               <div class="control-group">
@@ -53,7 +53,9 @@
               <div class="control-group">
                 <label class="control-label">Deskripsi Item</label>
                 <div class="controls">
-                  <?= form_textarea('desc', ''); ?>
+                  <?= form_textarea('desc', '', [
+						'id' => 'editor'
+					]); ?>
                 </div>
               </div>
               <div class="form-actions">
@@ -68,3 +70,10 @@
 </div>
 
 <?= $this->endSection(); ?>
+
+<?= $this->section('script'); ?>
+  <script>
+  CKEDITOR.replace( 'editor' );
+  </script>
+<?= $this->endSection(); ?>
+  

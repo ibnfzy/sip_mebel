@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>🏘 Meubel Shop | Pembeli Panel</title>
+  <title>🏘 Fauzan Meubel | Pembeli Panel</title>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/bootstrap.min.css" />
@@ -16,9 +16,9 @@
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/maruti-style.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/maruti-media.css" class="skin-color" />
   <style>
-  .text-white {
-    color: white;
-  }
+    .text-white {
+      color: white;
+    }
   </style>
 </head>
 
@@ -51,22 +51,22 @@
   <?= $this->renderSection('script'); ?>
 
   <script>
-  toastr.options = {
-    "closeButton": false,
-    "debug": false,
-    "newestOnTop": true,
-    "progressBar": true,
-    "positionClass": "toast-top-right",
-    "preventDuplicates": false,
-    "showDuration": "600",
-    "hideDuration": "1000",
-    "timeOut": "5000",
-    "extendedTimeOut": "1000",
-    "showEasing": "swing",
-    "hideEasing": "linear",
-    "showMethod": "fadeIn",
-    "hideMethod": "fadeOut"
-  }
+    toastr.options = {
+      "closeButton": false,
+      "debug": false,
+      "newestOnTop": true,
+      "progressBar": true,
+      "positionClass": "toast-top-right",
+      "preventDuplicates": false,
+      "showDuration": "600",
+      "hideDuration": "1000",
+      "timeOut": "5000",
+      "extendedTimeOut": "1000",
+      "showEasing": "swing",
+      "hideEasing": "linear",
+      "showMethod": "fadeIn",
+      "hideMethod": "fadeOut"
+    }
   </script>
 
   <?php ?>
