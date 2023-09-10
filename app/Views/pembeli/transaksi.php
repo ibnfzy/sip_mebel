@@ -41,11 +41,12 @@
                   <td><?= $item['potongan']; ?>%</td>
                   <td>Rp. <?= number_format($item['total_bayar'], 0, ',', '.'); ?></td>
                   <td><?= $item['tgl_checkout']; ?></td>
-                  <td><?= ($item['tanggal_upload_bayar'] == null or $item['status_bayar'] == 'Menunggu Bukti Bayar') ? 'Belum Bayar' : $item['tanggal_upload_bayar']; ?></td>
+                  <td>
+                    <?= ($item['tanggal_upload_bayar'] == null or $item['status_bayar'] == 'Menunggu Bukti Bayar') ? 'Belum Bayar' : $item['tanggal_upload_bayar']; ?>
+                  </td>
                   <td><?= $item['metode_pembayaran']; ?></td>
                   <td><?= $item['status_bayar']; ?></td>
                   <td>
-
                     <div class="btn-group btn-group-sm" role="group">
                       <?php if ($item['status_bayar'] == 'Dalam Pengiriman') : ?>
 

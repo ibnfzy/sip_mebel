@@ -17,112 +17,112 @@
   <link rel="stylesheet" href="<?= base_url(''); ?>/swal/dist/sweetalert2.min.css">
   <link rel="stylesheet" href="<?= base_url('/'); ?>/toastr/build/toastr.min.css">
   <style>
-  body {
-    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    text-align: center;
-    color: #777;
-    background: rgb(238, 174, 202);
-    background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
-  }
-
-  body h1 {
-    font-weight: 300;
-    margin-bottom: 0px;
-    padding-bottom: 0px;
-    color: #000;
-  }
-
-  body h3 {
-    font-weight: 300;
-    margin-top: 10px;
-    margin-bottom: 20px;
-    font-style: italic;
-    color: #555;
-  }
-
-  body a {
-    color: #06f;
-  }
-
-  .invoice-box {
-    max-width: 800px;
-    margin: auto;
-    padding: 30px;
-    border: 1px solid #eee;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    font-size: 16px;
-    line-height: 24px;
-    font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
-    color: #555;
-    background-color: white;
-  }
-
-  .invoice-box table {
-    width: 100%;
-    line-height: inherit;
-    text-align: left;
-    border-collapse: collapse;
-  }
-
-  .invoice-box table td {
-    padding: 5px;
-    vertical-align: top;
-  }
-
-  .invoice-box table tr td:nth-child(2) {
-    text-align: right;
-  }
-
-  .invoice-box table tr.top table td {
-    padding-bottom: 20px;
-  }
-
-  .invoice-box table tr.top table td.title {
-    font-size: 45px;
-    line-height: 45px;
-    color: #333;
-  }
-
-  .invoice-box table tr.information table td {
-    padding-bottom: 40px;
-  }
-
-  .invoice-box table tr.heading td {
-    background: #eee;
-    border-bottom: 1px solid #ddd;
-    font-weight: bold;
-  }
-
-  .invoice-box table tr.details td {
-    padding-bottom: 20px;
-  }
-
-  .invoice-box table tr.item td {
-    border-bottom: 1px solid #eee;
-  }
-
-  .invoice-box table tr.item.last td {
-    border-bottom: none;
-  }
-
-  .invoice-box table tr.total td:nth-child(2) {
-    border-top: 2px solid #eee;
-    font-weight: bold;
-  }
-
-  @media only screen and (max-width: 600px) {
-    .invoice-box table tr.top table td {
-      width: 100%;
-      display: block;
+    body {
+      font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
       text-align: center;
+      color: #777;
+      background: rgb(238, 174, 202);
+      background: linear-gradient(90deg, rgba(238, 174, 202, 1) 0%, rgba(148, 187, 233, 1) 100%);
+    }
+
+    body h1 {
+      font-weight: 300;
+      margin-bottom: 0px;
+      padding-bottom: 0px;
+      color: #000;
+    }
+
+    body h3 {
+      font-weight: 300;
+      margin-top: 10px;
+      margin-bottom: 20px;
+      font-style: italic;
+      color: #555;
+    }
+
+    body a {
+      color: #06f;
+    }
+
+    .invoice-box {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #eee;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+      font-size: 16px;
+      line-height: 24px;
+      font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+      color: #555;
+      background-color: white;
+    }
+
+    .invoice-box table {
+      width: 100%;
+      line-height: inherit;
+      text-align: left;
+      border-collapse: collapse;
+    }
+
+    .invoice-box table td {
+      padding: 5px;
+      vertical-align: top;
+    }
+
+    .invoice-box table tr td:nth-child(2) {
+      text-align: right;
+    }
+
+    .invoice-box table tr.top table td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.top table td.title {
+      font-size: 45px;
+      line-height: 45px;
+      color: #333;
     }
 
     .invoice-box table tr.information table td {
-      width: 100%;
-      display: block;
-      text-align: center;
+      padding-bottom: 40px;
     }
-  }
+
+    .invoice-box table tr.heading td {
+      background: #eee;
+      border-bottom: 1px solid #ddd;
+      font-weight: bold;
+    }
+
+    .invoice-box table tr.details td {
+      padding-bottom: 20px;
+    }
+
+    .invoice-box table tr.item td {
+      border-bottom: 1px solid #eee;
+    }
+
+    .invoice-box table tr.item.last td {
+      border-bottom: none;
+    }
+
+    .invoice-box table tr.total td:nth-child(2) {
+      border-top: 2px solid #eee;
+      font-weight: bold;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .invoice-box table tr.top table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+
+      .invoice-box table tr.information table td {
+        width: 100%;
+        display: block;
+        text-align: center;
+      }
+    }
   </style>
 </head>
 
@@ -142,9 +142,12 @@
               </td>
 
               <td>
-                Invoice #: <?= $cart_item['id_cart_item']; ?><br />
-                Created: <?= $cart_item['tgl_checkout']; ?><br />
-                Batas Pembayaran: <?= ($cart_item['batas_pembayaran'] != null) ? $cart_item['batas_pembayaran'] : 'Sudah Mengupload Bukti Bayar' ?>
+                Invoice #:
+                <?= $cart_item['id_cart_item']; ?><br />
+                Created:
+                <?= $cart_item['tgl_checkout']; ?><br />
+                Batas Pembayaran:
+                <?= ($cart_item['batas_pembayaran'] != null) ? $cart_item['batas_pembayaran'] : 'Sudah Mengupload Bukti Bayar' ?>
               </td>
             </tr>
           </table>
@@ -165,7 +168,9 @@
 
               <td>
                 <?= $_SESSION['fullname']; ?>.<br />
-                <?= $get['nama_kota']; ?>, <?= $datapembeli['kec_desa']; ?> <?= $datapembeli['alamat']; ?><br />
+                <?= $get['nama_kota']; ?>,
+                <?= $datapembeli['kec_desa']; ?>
+                <?= $datapembeli['alamat']; ?><br />
                 <?= $datapembeli['nomor_hp']; ?>
               </td>
             </tr>
@@ -177,53 +182,84 @@
         <td>#</td>
         <td>Nama Item</td>
         <td>Kuantitas</td>
+        <td>Diskon</td>
         <td>Total Harga</td>
         <td>Tanggal Order</td>
       </tr>
 
       <?php $i = 1;
       $total = [];
-      foreach ($data as $item) : ?>
-      <?php $total[] = $item['total_harga']; ?>
-      <tr class="item">
-        <td><?= $i++; ?></td>
-        <td><?= $item['nama_item']; ?></td>
-        <td><?= $item['qty_transactions']; ?></td>
-        <td>Rp. <?= number_format($item['total_harga'], 0, ',', '.'); ?></td>
-        <td><?= $item['transactions_datetime']; ?></td>
-      </tr>
+      foreach ($data as $item): ?>
+        <?php $total[] = $item['total_harga']; ?>
+        <tr class="item">
+          <td>
+            <?= $i++; ?>
+          </td>
+          <td>
+            <?= $item['nama_item']; ?>
+          </td>
+          <td>
+            <?= $item['qty_transactions']; ?>
+          </td>
+          <td>
+            <?= ($item['potongan'] == 1) ? $cart_item['potongan'] : 0; ?> %
+          </td>
+          <td>Rp.
+            <?= number_format($item['total_harga'], 0, ',', '.'); ?>
+          </td>
+          <td>
+            <?= $item['transactions_datetime']; ?>
+          </td>
+        </tr>
       <?php endforeach ?>
 
 
       <tr class="total">
-        <td colspan="3">Subtotal: Rp. <?php $subtotal = array_sum($total);
-                                      echo number_format($subtotal, 0, ',', '.') ?></td>
-        <td colspan="3">Diskon (%): <?= $cart_item['potongan']; ?>%</td>
+        <td colspan="3">Subtotal: Rp.
+          <?php $subtotal = array_sum($total);
+          echo number_format($subtotal, 0, ',', '.') ?>
+        </td>
+        <!-- <td colspan="3">Diskon (%):
+          <?= $cart_item['potongan']; ?>%
+        </td> -->
+        <td colspan="3">Jenis Reward :
+          <?= ($cart_item['type_reward'] == 'free') ? 'Free 1 Meja' : 'Diskon'; ?>
+        </td>
       </tr>
 
       <tr class="total">
         <td colspan="3">Biaya Ongkir: Rp.
-          <?= number_format($get['biaya'], 0, ',', '.'); ?></td>
+          <?= number_format($get['biaya'], 0, ',', '.'); ?>
+        </td>
         <td colspan="3">Total Bayar: Rp.
-          <?php $bayarDiskon = ($subtotal - ($subtotal * ($cart_item['potongan'] / 100))) + $get['biaya'];
+          <?php $bayarDiskon = $subtotal + $get['biaya'];
           $bayar = $subtotal + $get['biaya'];
 
           $totalBayar = ($cart_item['potongan'] != 0) ? $bayarDiskon : $bayar;
           echo number_format($totalBayar, 0, ',', '.')
-          ?></td>
+            ?>
+        </td>
       </tr>
 
       <tr class="total">
-        <td colspan="3">Status Pembayaran : <?= $cart_item['status_bayar']; ?></td>
-        <td colspan="3">Metode Pembayaran : <?= $cart_item['metode_pembayaran']; ?></td>
+        <td colspan="3">Status Pembayaran :
+          <?= $cart_item['status_bayar']; ?>
+        </td>
+        <td colspan="3">Metode Pembayaran :
+          <?= $cart_item['metode_pembayaran']; ?>
+        </td>
       </tr>
       <tr>
-        <td>Jenis Reward : <?= ($cart_item['type_reward'] == 'free') ? 'Free 1 Meja' : 'Diskon'; ?></td>
+        <!-- <td>Jenis Reward :
+          <?= ($cart_item['type_reward'] == 'free') ? 'Free 1 Meja' : 'Diskon'; ?>
+        </td> -->
       </tr>
     </table>
     <table>
       <tr>
-        <td>Silahkan menyelesaikan transaksi dengan mengirim pembayaran dengan nominal Rp. <?= number_format($totalBayar, 0, ',', '.') ?> ke BANK XYZ 123456789 A/N Wulan</td>
+        <td>Silahkan menyelesaikan transaksi dengan mengirim pembayaran dengan nominal Rp.
+          <?= number_format($totalBayar, 0, ',', '.') ?> ke BANK XYZ 123456789 A/N Wulan
+        </td>
       </tr>
     </table>
     <hr>
@@ -275,7 +311,7 @@
   <script src="<?= base_url(''); ?>/js/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-  </script>
+    </script>
   <script src="<?= base_url('/'); ?>/toastr/build/toastr.min.js"></script>
   <script src="<?= base_url('/'); ?>/fontawesome-free-6.4.0-web/js/all.min.js"></script>
 </body>

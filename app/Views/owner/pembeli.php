@@ -30,34 +30,53 @@
                   <th>Total Transaksi Checkout Berhasil</th>
                   <th>Bukti Pembayaran belum diValidasi</th>
                   <th>Status Pelanggan</th>
-                  <th>Pelanggan Aktif/Tidak</th>
+                  <th>Pelanggan Aktif/Tidak (30 hari terakhir)</th>
                 </tr>
               </thead>
               <tbody>
                 <?php
-
                 use CodeIgniter\Database\RawSql;
 
+                $db = \Config\Database::connect();
                 $i = 1;
-                foreach ($data as $item): ?>
-                <?php $db = \Config\Database::connect();
-                  // dd($getBarang['fullname']);
+
+                foreach ($data as $item):
                   $get1 = $db->table('cart_item')->where('id_pembeli', $item['id_pembeli'])->get()->getResultArray();
+
                   $get2 = $db->table('cart_item')->where('id_pembeli', $item['id_pembeli'])->where('status_bayar', 'Selesai')->get()->getResultArray();
+
                   $get3 = $db->table('cart_item')->where('id_pembeli', $item['id_pembeli'])->where('status_bayar', 'Menunggu Validasi Bukti Bayar')->get()->getResultArray();
+
                   $get4 = $db->table('transactions')
                     ->select(new RawSql('DISTINCT id_pembeli, COUNT(id_pembeli) as total_transaksi, transactions_datetime'))
                     ->where('id_pembeli', $item['id_pembeli'])
                     ->groupBy('id_pembeli')->get()->getRowArray();
 
-                  // dd($get4);
-                
+                  $get = $db->table('cart_item')->where('id_pembeli', $item['id_pembeli'])->where('status_bayar', 'Selesai')->get()->getRowArray();
+
+
+                  $aktif = false;
+                  if ($get) {
+                    $last_transaction = date("m/d/Y", strtotime($get['tgl_checkout']));
+                    $fdate = new DateTime($last_transaction);
+                    $edate = new DateTime();
+                    $diffdate = $fdate->diff($edate);
+                    $diffdateindays = (int) $diffdate->format('%r%a');
+
+                    if ($diffdateindays <= 30) {
+                      $aktif = true;
+                    }
+                  }
+
                   $status = 'Customer Baru';
+
                   if (count($get1) >= 5) {
                     $status = 'Pelanggan Loyal';
                   } else if (count($get1) != 0) {
                     $status = 'Customer';
                   }
+
+
                   ?>
                 <tr>
                   <th>
@@ -84,7 +103,9 @@
                   <td>
                     <?= $status; ?>
                   </td>
-                  <td></td>
+                  <td>
+                    <?= ($aktif) ? 'Aktif' : 'Tidak Aktif'; ?>
+                  </td>
                 </tr>
                 <?php endforeach; ?>
               </tbody>
@@ -128,8 +149,8 @@ function demoFromHTML() {
 
   var finalY = doc.lastAutoTable.finalY
   doc.setFontSize(12)
-  doc.text('Jeneponto, ' + fulldate, 110, finalY + 5)
-  doc.text('Admin', 110, finalY + 20)
+  doc.text('Jeneponto, ' + fulldate, 140, finalY + 2)
+  doc.text('Admin', 140, finalY + 15)
 
   doc.save('laporan_pelanggan.pdf')
 }

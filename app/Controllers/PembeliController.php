@@ -25,15 +25,15 @@ class PembeliController extends BaseController
 
     public function __construct()
     {
-        $this->transaksiModel   = new TransactionsModel();
-        $this->itemModel        = new ItemModel();
-        $this->cart_itemModel   = new CartItemModel();
+        $this->transaksiModel = new TransactionsModel();
+        $this->itemModel = new ItemModel();
+        $this->cart_itemModel = new CartItemModel();
         $this->informasiPembeli = new PembeliInformasiModel();
-        $this->tokoInformasi    = new InformasiTokoModel();
-        $this->reviewModel      = new ReviewItemModel();
-        $this->voucherPembeli   = new VoucherPembeliModel();
-        $this->db               = \Config\Database::connect();
-        $this->cart             = \Config\Services::cart();
+        $this->tokoInformasi = new InformasiTokoModel();
+        $this->reviewModel = new ReviewItemModel();
+        $this->voucherPembeli = new VoucherPembeliModel();
+        $this->db = \Config\Database::connect();
+        $this->cart = \Config\Services::cart();
     }
 
     public function index()
@@ -48,7 +48,7 @@ class PembeliController extends BaseController
     {
         $getcart_item = $this->db->table('cart_item')
             ->where('id_pembeli', $_SESSION['id_pembeli'])
-          	->orderBy('id_cart_item', 'DESC')
+            ->orderBy('id_cart_item', 'DESC')
             ->get()
             ->getResultArray();
 
@@ -114,8 +114,8 @@ class PembeliController extends BaseController
         $data = [
             'bukti_bayar' => $this->request->getFile('gambar')->getName(),
             'status_bayar' => 'Menunggu Validasi Bukti Bayar',
-          	'tanggal_upload_bayar' => date('Y-m-d'),
-          	'batas_pembayaran' => null
+            'tanggal_upload_bayar' => date('Y-m-d'),
+            'batas_pembayaran' => null
         ];
 
         if (!$this->request->getFile('gambar')->hasMoved()) {
@@ -256,19 +256,19 @@ class PembeliController extends BaseController
         $subtotal = $_SESSION['subtotal'];
         $type_reward = 'diskon';
         $metode = $this->request->getPost('bayar');
-      	$diskon = 0;
-      
-      	if ($this->cart->totalItems() == 1) {
-      		$diskon = 5;    
+        $diskon = 0;
+
+        if ($this->cart->totalItems() == 1) {
+            $diskon = 5;
         } else if ($this->cart->totalItems() == 2) {
-         	$diskon = 10; 
+            $diskon = 10;
         } else if ($this->cart->totalItems() >= 3) {
-         	$type_reward = 'free';
+            $type_reward = 'free';
         }
-      
+
         $getPembeli = $this->db->table('pembeli_informasi')->where('id_pembeli', $_SESSION['id_pembeli'])->get()->getRowArray();
         $home = new Home;
-      
+
         if (!isset($getPembeli) and $getPembeli['alamat'] == null or $getPembeli['nomor_hp'] == null or $getPembeli['kota'] == null or $getPembeli['kec_desa'] == null) {
             $home->clear_cart();
             return redirect()->to(base_url('PembeliPanel/Setting'))->with('type-status', 'info')
@@ -280,28 +280,38 @@ class PembeliController extends BaseController
             $get = [];
             $data = [];
             $rowid = random_string('alnum', 15);
+            $idarr = [];
             foreach ($this->cart->contents() as $item) {
                 $produk = $this->itemModel->find($item['id']);
                 $get[] = $produk;
                 $get[$q]['qty'] = $item['qty'];
                 $get[$q]['total_harga'] = $item['qty'] * $item['price'];
                 $stok = $produk['stok_item'] - $item['qty'];
+                $idarr[] = $item['id'];
                 $this->itemModel->update($item['id'], [
                     'stok_item' => $stok
                 ]);
                 $q++;
             }
 
+            $diskon_item_id_key = array_rand($idarr);
+            $get_id_item = $idarr[$diskon_item_id_key];
+            $hargarr = [];
+
             foreach ($get as $item) {
+                $hdiskon = $item['total_harga'] - ($item['total_harga'] * $diskon / 100);
+                $harga = ($get_id_item == $item['id_item']) ? $hdiskon : $item['total_harga'];
                 $data[] = [
                     'id_item' => $item['id_item'],
                     'id_pembeli' => $_SESSION['id_pembeli'],
                     'rowid' => $rowid,
                     'fullname' => $_SESSION['fullname'],
                     'nama_item' => $item['nama_item'],
-                    'total_harga' => $item['total_harga'],
+                    'total_harga' => $harga,
                     'qty_transactions' => $item['qty'],
+                    'potongan' => ($get_id_item == $item['id_item']) ? 1 : 0
                 ];
+                $hargarr[] = $harga;
             }
 
             $dataKeranjang = [
@@ -309,11 +319,11 @@ class PembeliController extends BaseController
                 'rowid' => $rowid,
                 'total_items' => $this->cart->totalItems(),
                 'potongan' => $diskon,
-                'total_bayar' => $subtotal,
+                'total_bayar' => array_sum($hargarr),
                 'status_bayar' => ($metode == 'transfer') ? 'Menunggu Bukti Bayar' : 'Diproses',
                 'metode_pembayaran' => ($metode == 'transfer') ? 'Transfer' : 'Cash On Delivery',
                 'tgl_checkout' => date('Y-m-d'),
-              	'batas_pembayaran' => date('Y-m-d', strtotime(date('Y-m-d') . ' +1 day')),
+                'batas_pembayaran' => date('Y-m-d', strtotime(date('Y-m-d') . ' +1 day')),
                 'type_reward' => $type_reward,
             ];
 
