@@ -20,27 +20,27 @@ class OwnerController extends BaseController
     public function index()
     {
         $db = \Config\Database::connect();
-      
-      
 
-        $voucher    = $db->table('voucher')->get()->getResultArray();
-        $pembeli    = $db->table('pembeli')->get()->getResultArray();
-        $itemstok   = $db->table('item')->select('sum(stok_item) as total_tersedia')->get()->getRowArray();
+
+
+        $voucher = $db->table('voucher')->get()->getResultArray();
+        $pembeli = $db->table('pembeli')->get()->getResultArray();
+        $itemstok = $db->table('item')->select('sum(stok_item) as total_tersedia')->get()->getRowArray();
         $verifikasi = $db->table('cart_item')->where('status_bayar', 'Menunggu Validasi Bukti Bayar')->get()->getResultArray();
 
-      return redirect()->to(base_url('OwnerPanel/Arsip'));
+        return redirect()->to(base_url('OwnerPanel/Transaksi'));
         // return view('owner/dashboard', [
-        //    'voucher'       => count($voucher),
-        //    'pembeli'       => count($pembeli),
-        //    'itemstok'      => $itemstok['total_tersedia'],
-        //    'verifikasi'    => count($verifikasi)
+        //     'voucher' => count($voucher),
+        //     'pembeli' => count($pembeli),
+        //     'itemstok' => $itemstok['total_tersedia'],
+        //     'verifikasi' => count($verifikasi)
         // ]);
     }
 
     public function transaksi()
     {
         return view('owner/transaksi', [
-            'data' => $this->db->table('transactions')->get()->getResultArray()
+            'data' => $this->db->table('transactions')->orderBy('id_transactions', 'DESC')->get()->getResultArray()
         ]);
     }
 
@@ -56,9 +56,7 @@ class OwnerController extends BaseController
     public function pembeli()
     {
         return view('owner/pembeli', [
-            'data' => $this->db->table('transactions')
-                ->select(new RawSql('DISTINCT id_pembeli, COUNT(id_pembeli) as total_transaksi, transactions_datetime'))
-                ->groupBy('id_pembeli')->get()->getResultArray()
+            'data' => $this->db->table('pembeli')->get()->getResultArray()
         ]);
     }
 

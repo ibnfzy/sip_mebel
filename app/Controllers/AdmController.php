@@ -33,16 +33,16 @@ class AdmController extends BaseController
     {
         $db = \Config\Database::connect();
 
-        $voucher    = $db->table('voucher')->get()->getResultArray();
-        $pembeli    = $db->table('pembeli')->get()->getResultArray();
-        $itemstok   = $db->table('item')->select('sum(stok_item) as total_tersedia')->get()->getRowArray();
+        $voucher = $db->table('voucher')->get()->getResultArray();
+        $pembeli = $db->table('pembeli')->get()->getResultArray();
+        $itemstok = $db->table('item')->select('sum(stok_item) as total_tersedia')->get()->getRowArray();
         $verifikasi = $db->table('cart_item')->where('status_bayar', 'Menunggu Validasi Bukti Bayar')->get()->getResultArray();
 
         return view('admin/dashboard', [
-            'voucher'       => count($voucher),
-            'pembeli'       => count($pembeli),
-            'itemstok'      => $itemstok['total_tersedia'],
-            'verifikasi'    => count($verifikasi)
+            'voucher' => count($voucher),
+            'pembeli' => count($pembeli),
+            'itemstok' => $itemstok['total_tersedia'],
+            'verifikasi' => count($verifikasi)
         ]);
     }
 
@@ -138,7 +138,7 @@ class AdmController extends BaseController
 
         $data = [
             'nama_kota' => $this->request->getPost('nama_kota'),
-            'biaya'  => $this->request->getPost('biaya')
+            'biaya' => $this->request->getPost('biaya')
         ];
 
         $this->db->table('biaya_ongkir')->insert($data);
@@ -279,7 +279,7 @@ class AdmController extends BaseController
     public function transaksi_laporan()
     {
         return view('admin/laporan_transaksi', [
-            'data' => $this->db->table('transactions')->get()->getResultArray()
+            'data' => $this->db->table('transactions')->orderBy('id_transactions', 'DESC')->get()->getResultArray()
         ]);
     }
 

@@ -23,6 +23,7 @@
               <thead>
                 <tr>
                   <th scope="col">#</th>
+                  <th scope="col">ID Pelanggan</th>
                   <th scope="col">Nama Pembeli</th>
                   <th scope="col">Nama Item</th>
                   <th scope="col">Total Harga</th>
@@ -32,15 +33,30 @@
               </thead>
               <tbody>
                 <?php $i = 1;
-                foreach ($data as $item) : ?>
-                <tr>
-                  <th><?= $i++; ?></th>
-                  <td><?= $item['fullname']; ?></td>
-                  <td><?= $item['nama_item']; ?></td>
-                  <td>Rp. <?= number_format($item['total_harga'], 0, ',', '.'); ?></td>
-                  <td><?= $item['transactions_datetime']; ?></td>
-                  <td><?= $item['qty_transactions']; ?></td>
-                </tr>
+                foreach ($data as $item): ?>
+                  <tr>
+                    <th>
+                      <?= $i++; ?>
+                    </th>
+                    <td>
+                      <?= $item['id_pembeli']; ?>
+                    </td>
+                    <td>
+                      <?= $item['fullname']; ?>
+                    </td>
+                    <td>
+                      <?= $item['nama_item']; ?>
+                    </td>
+                    <td>Rp.
+                      <?= number_format($item['total_harga'], 0, ',', '.'); ?>
+                    </td>
+                    <td>
+                      <?= $item['transactions_datetime']; ?>
+                    </td>
+                    <td>
+                      <?= $item['qty_transactions']; ?>
+                    </td>
+                  </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
@@ -55,25 +71,38 @@
 
 <?= $this->section('script'); ?>
 <script>
-function printData() {
-  var divToPrint = document.getElementById("printTable");
-  newWin = window.open("");
-  newWin.document.write(divToPrint.outerHTML);
-  newWin.print();
-  newWin.close();
-}
+  function printData() {
+    var divToPrint = document.getElementById("printTable");
+    newWin = window.open("");
+    newWin.document.write(divToPrint.outerHTML);
+    newWin.print();
+    newWin.close();
+  }
 
-const btn = document.getElementById("print");
-btn.addEventListener('click', () => printData())
+  const btn = document.getElementById("print");
+  btn.addEventListener('click', () => printData())
 
-function demoFromHTML() {
-  var doc = new jspdf.jsPDF()
+  function demoFromHTML() {
+    const d = new Date()
+    const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
+      "November", "December"
+    ];
+    let month = months[d.getMonth()];
+    let fulldate = d.getDate() + ' ' + month + ' ' + d.getFullYear();
+    var doc = new jspdf.jsPDF()
 
-  doc.autoTable({
-    html: '#printTable'
-  })
+    doc.setFontSize(18)
+    doc.text('Laporan Transaksi', 110, 10, 'center')
+    doc.autoTable({
+      html: '#printTable'
+    });
 
-  doc.save('laporan.pdf')
-}
+    var finalY = doc.lastAutoTable.finalY
+    doc.setFontSize(12)
+    doc.text('Jeneponto, ' + fulldate, 140, finalY + 20)
+    doc.text('Admin', 120, finalY + 50)
+
+    doc.save('laporan.pdf')
+  }
 </script>
 <?= $this->endSection(); ?>

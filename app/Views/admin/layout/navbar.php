@@ -56,7 +56,7 @@
           Kostumer</span></a> </li>
     <!-- <li><a href="<?= base_url('AdmPanel/Laporan'); ?>"><i class="fa-solid fa-file-pdf" style="color: #ffffff;"></i>
         <span>Form Laporan</span></a> </li> -->
-    <li><a href="<?= base_url('AdmPanel/ArsipLaporan'); ?>"><i class="fa-solid fa-folder text-white"></i>
-        <span>Table Arsip Laporan</span></a> </li>
+    <!-- <li><a href="<?= base_url('AdmPanel/ArsipLaporan'); ?>"><i class="fa-solid fa-folder text-white"></i>
+        <span>Table Arsip Laporan</span></a> </li> -->
   </ul>
 </div>
