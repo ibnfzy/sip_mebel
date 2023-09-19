@@ -28,7 +28,7 @@ class OwnerController extends BaseController
         $itemstok = $db->table('item')->select('sum(stok_item) as total_tersedia')->get()->getRowArray();
         $verifikasi = $db->table('cart_item')->where('status_bayar', 'Menunggu Validasi Bukti Bayar')->get()->getResultArray();
 
-        return redirect()->to(base_url('OwnerPanel/Transaksi'));
+        return redirect()->to(base_url('OwnerPanel/Laporan'));
         // return view('owner/dashboard', [
         //     'voucher' => count($voucher),
         //     'pembeli' => count($pembeli),
@@ -69,13 +69,14 @@ class OwnerController extends BaseController
     {
         $date1 = $this->request->getPost('val1');
         $date2 = $this->request->getPost('val2');
-        $converDate1 = date('D, d M Y H:i:s', strtotime($date1 ?? ''));
-        $converDate2 = date('D, d M Y H:i:s', strtotime($date2 ?? ''));
+        $converDate1 = date('Y-m-d H:i:s', strtotime($date1 ?? ''));
+        $converDate2 = date('Y-m-d H:i:s', strtotime($date2 ?? ''));
 
         return view('owner/transaksi', [
             'data' => $this->db->table('transactions')
                 ->where('transactions_datetime BETWEEN "' . $converDate1 . '" and "' . $converDate2 . '"')
-                ->get()->getResultArray()
+                ->orderBy('id_transactions', 'DESC')
+                ->get()->getResultArray(),
         ]);
     }
 

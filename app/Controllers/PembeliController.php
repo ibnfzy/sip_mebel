@@ -254,17 +254,9 @@ class PembeliController extends BaseController
         helper('text');
 
         $subtotal = $_SESSION['subtotal'];
-        $type_reward = 'diskon';
+        $type_reward = session()->get('type_reward');
         $metode = $this->request->getPost('bayar');
-        $diskon = 0;
-
-        if ($this->cart->totalItems() == 1) {
-            $diskon = 5;
-        } else if ($this->cart->totalItems() == 2) {
-            $diskon = 10;
-        } else if ($this->cart->totalItems() >= 3) {
-            $type_reward = 'free';
-        }
+        $diskon = session()->get('diskon');
 
         $getPembeli = $this->db->table('pembeli_informasi')->where('id_pembeli', $_SESSION['id_pembeli'])->get()->getRowArray();
         $home = new Home;
@@ -294,13 +286,15 @@ class PembeliController extends BaseController
                 $q++;
             }
 
-            $diskon_item_id_key = array_rand($idarr);
-            $get_id_item = $idarr[$diskon_item_id_key];
+            $get_id_item = session()->get('id_barang_diskon');
             $hargarr = [];
 
             foreach ($get as $item) {
+
                 $hdiskon = $item['total_harga'] - ($item['total_harga'] * $diskon / 100);
+
                 $harga = ($get_id_item == $item['id_item']) ? $hdiskon : $item['total_harga'];
+
                 $data[] = [
                     'id_item' => $item['id_item'],
                     'id_pembeli' => $_SESSION['id_pembeli'],
@@ -311,6 +305,7 @@ class PembeliController extends BaseController
                     'qty_transactions' => $item['qty'],
                     'potongan' => ($get_id_item == $item['id_item']) ? 1 : 0
                 ];
+
                 $hargarr[] = $harga;
             }
 

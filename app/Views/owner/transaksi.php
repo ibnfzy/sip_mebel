@@ -34,29 +34,29 @@
               <tbody>
                 <?php $i = 1;
                 foreach ($data as $item): ?>
-                  <tr>
-                    <th>
-                      <?= $i++; ?>
-                    </th>
-                    <td>
-                      <?= $item['id_pembeli']; ?>
-                    </td>
-                    <td>
-                      <?= $item['fullname']; ?>
-                    </td>
-                    <td>
-                      <?= $item['nama_item']; ?>
-                    </td>
-                    <td>Rp.
-                      <?= number_format($item['total_harga'], 0, ',', '.'); ?>
-                    </td>
-                    <td>
-                      <?= $item['transactions_datetime']; ?>
-                    </td>
-                    <td>
-                      <?= $item['qty_transactions']; ?>
-                    </td>
-                  </tr>
+                <tr>
+                  <th>
+                    <?= $i++; ?>
+                  </th>
+                  <td>
+                    <?= $item['id_pembeli']; ?>
+                  </td>
+                  <td>
+                    <?= $item['fullname']; ?>
+                  </td>
+                  <td>
+                    <?= $item['nama_item']; ?>
+                  </td>
+                  <td>Rp.
+                    <?= number_format($item['total_harga'], 0, ',', '.'); ?>
+                  </td>
+                  <td>
+                    <?= $item['transactions_datetime']; ?>
+                  </td>
+                  <td>
+                    <?= $item['qty_transactions']; ?>
+                  </td>
+                </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
@@ -71,38 +71,46 @@
 
 <?= $this->section('script'); ?>
 <script>
-  function printData() {
-    var divToPrint = document.getElementById("printTable");
-    newWin = window.open("");
-    newWin.document.write(divToPrint.outerHTML);
-    newWin.print();
-    newWin.close();
-  }
+function printData() {
+  var divToPrint = document.getElementById("printTable");
+  newWin = window.open("");
+  newWin.document.write(divToPrint.outerHTML);
+  newWin.print();
+  newWin.close();
+}
 
-  const btn = document.getElementById("print");
-  btn.addEventListener('click', () => printData())
+const btn = document.getElementById("print");
+btn.addEventListener('click', () => printData())
 
-  function demoFromHTML() {
-    const d = new Date()
-    const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
-      "November", "December"
-    ];
-    let month = months[d.getMonth()];
-    let fulldate = d.getDate() + ' ' + month + ' ' + d.getFullYear();
-    var doc = new jspdf.jsPDF()
+function demoFromHTML() {
+  const d = new Date()
+  const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
+    "November", "December"
+  ];
+  let month = months[d.getMonth()];
+  let fulldate = d.getDate() + ' ' + month + ' ' + d.getFullYear();
+  var doc = new jspdf.jsPDF()
 
-    doc.setFontSize(18)
-    doc.text('Laporan Transaksi', 110, 10, 'center')
-    doc.autoTable({
-      html: '#printTable'
-    });
+  doc.setFontSize(17)
+  doc.text('LAPORAN TRANSAKSI', 110, 10, 'center')
+  doc.text('TOKO FAUZAN MEUBLE', 110, 16, 'center')
+  doc.setFontSize(12)
+  doc.text('Desa Arpal, Kecamatan Arungkeke, Kab. Jeneponto', 110, 20, 'center')
+  doc.text('Sulawesi Selatan', 110, 25, 'center')
+  doc.autoTable({
+    html: '#printTable',
+    margin: {
+      top: 30
+    },
+    'autoPaging': 'text'
+  });
 
-    var finalY = doc.lastAutoTable.finalY
-    doc.setFontSize(12)
-    doc.text('Jeneponto, ' + fulldate, 140, finalY + 20)
-    doc.text('Admin', 120, finalY + 50)
+  var finalY = doc.lastAutoTable.finalY
+  doc.setFontSize(12)
+  doc.text('Jeneponto, ' + fulldate, 140, finalY + 20)
+  doc.text('Admin', 140, finalY + 35)
 
-    doc.save('laporan.pdf')
-  }
+  doc.save('laporan.pdf')
+}
 </script>
 <?= $this->endSection(); ?>

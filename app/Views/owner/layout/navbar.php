@@ -32,7 +32,7 @@
 <div id="sidebar"><a href="#" class="visible-phone"><i class="icon icon-home"></i> Dashboard</a>
   <ul>
 
-    <li><a href="<?= base_url('OwnerPanel/Transaksi'); ?>"><i class="fa-solid fa-tags text-white"></i>
+    <li><a href="<?= base_url('OwnerPanel/Laporan'); ?>"><i class="fa-solid fa-tags text-white"></i>
         <span>Laporan
           Penjualan</span></a> </li>
 

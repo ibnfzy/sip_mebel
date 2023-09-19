@@ -16,9 +16,9 @@
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/maruti-style.css" />
   <link rel="stylesheet" href="<?= base_url(''); ?>/css/maruti-media.css" class="skin-color" />
   <style>
-    .text-white {
-      color: white;
-    }
+  .text-white {
+    color: white;
+  }
   </style>
 </head>
 
@@ -38,16 +38,14 @@
   <script src="<?= base_url(''); ?>/js/jquery.flot.resize.min.js"></script>
   <script src="<?= base_url(''); ?>/js/jquery.peity.min.js"></script>
   <script src="<?= base_url(''); ?>/js/fullcalendar.min.js"></script>
-    <script src="<?= base_url(''); ?>/js/jsPDF-AutoTable-3.5.28/examples/libs/jspdf.umd.js"></script>
+  <script src="<?= base_url(''); ?>/js/jsPDF-AutoTable-3.5.28/examples/libs/jspdf.umd.js"></script>
   <script src="<?= base_url(''); ?>/js/jsPDF-AutoTable-3.5.28/dist/jspdf.plugin.autotable.js"></script>
-<script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
+  <script src="https://cdn.ckeditor.com/4.13.0/standard/ckeditor.js"></script>
   <script src="<?= base_url('/'); ?>/toastr/build/toastr.min.js"></script>
   <script src="<?= base_url('/'); ?>/fontawesome-free-6.4.0-web/js/all.min.js"></script>
   <script src="<?= base_url('/'); ?>/js/jquery.dataTables.min.js"></script>
   <script src="<?= base_url('/'); ?>/js/select2.min.js"></script>
   <script src="<?= base_url(''); ?>/js/maruti.js"></script>
-  <!-- <script src="<?= base_url(''); ?>/js/maruti.dashboard.js"></script> -->
-  <!-- <script src="<?= base_url(''); ?>/js/maruti.charts.js"></script> -->
   <script src="<?= base_url(''); ?>/js/jquery.peity.min.js"></script>
   <script src="<?= base_url(''); ?>/js/maruti.tables.js"></script>
 
@@ -55,22 +53,22 @@
   <?= $this->renderSection('script'); ?>
 
   <script>
-    toastr.options = {
-      "closeButton": false,
-      "debug": false,
-      "newestOnTop": true,
-      "progressBar": true,
-      "positionClass": "toast-top-right",
-      "preventDuplicates": false,
-      "showDuration": "600",
-      "hideDuration": "1000",
-      "timeOut": "5000",
-      "extendedTimeOut": "1000",
-      "showEasing": "swing",
-      "hideEasing": "linear",
-      "showMethod": "fadeIn",
-      "hideMethod": "fadeOut"
-    }
+  toastr.options = {
+    "closeButton": false,
+    "debug": false,
+    "newestOnTop": true,
+    "progressBar": true,
+    "positionClass": "toast-top-right",
+    "preventDuplicates": false,
+    "showDuration": "600",
+    "hideDuration": "1000",
+    "timeOut": "5000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
   </script>
 
   <?php ?>

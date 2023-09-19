@@ -78,35 +78,35 @@
 
 
                   ?>
-                  <tr>
-                    <th>
-                      <?= $i++; ?>
-                    </th>
-                    <td>
-                      <?= $item['id_pembeli']; ?>
-                    </td>
-                    <td>
-                      <?= $item['fullname']; ?>
-                    </td>
-                    <td>
-                      <?= $get4['total_transaksi'] ?? '0'; ?>
-                    </td>
-                    <td>
-                      <?= count($get1); ?>
-                    </td>
-                    <td>
-                      <?= count($get2); ?>
-                    </td>
-                    <td>
-                      <?= count($get3); ?>
-                    </td>
-                    <td>
-                      <?= $status; ?>
-                    </td>
-                    <td>
-                      <?= ($aktif) ? 'Aktif' : 'Tidak Aktif'; ?>
-                    </td>
-                  </tr>
+                <tr>
+                  <th>
+                    <?= $i++; ?>
+                  </th>
+                  <td>
+                    <?= $item['id_pembeli']; ?>
+                  </td>
+                  <td>
+                    <?= $item['fullname']; ?>
+                  </td>
+                  <td>
+                    <?= $get4['total_transaksi'] ?? '0'; ?>
+                  </td>
+                  <td>
+                    <?= count($get1); ?>
+                  </td>
+                  <td>
+                    <?= count($get2); ?>
+                  </td>
+                  <td>
+                    <?= count($get3); ?>
+                  </td>
+                  <td>
+                    <?= $status; ?>
+                  </td>
+                  <td>
+                    <?= ($aktif) ? 'Aktif' : 'Tidak Aktif'; ?>
+                  </td>
+                </tr>
                 <?php endforeach; ?>
               </tbody>
             </table>
@@ -121,38 +121,46 @@
 
 <?= $this->section('script'); ?>
 <script>
-  function printData() {
-    var divToPrint = document.getElementById("printTable");
-    newWin = window.open("");
-    newWin.document.write(divToPrint.outerHTML);
-    newWin.print();
-    newWin.close();
-  }
+function printData() {
+  var divToPrint = document.getElementById("printTable");
+  newWin = window.open("");
+  newWin.document.write(divToPrint.outerHTML);
+  newWin.print();
+  newWin.close();
+}
 
-  const btn = document.getElementById("print");
-  btn.addEventListener('click', () => printData())
+const btn = document.getElementById("print");
+btn.addEventListener('click', () => printData())
 
-  function demoFromHTML() {
-    const d = new Date()
-    const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
-      "November", "December"
-    ];
-    let month = months[d.getMonth()];
-    let fulldate = d.getDate() + ' ' + month + ' ' + d.getFullYear();
-    var doc = new jspdf.jsPDF()
+function demoFromHTML() {
+  const d = new Date()
+  const months = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober",
+    "November", "December"
+  ];
+  let month = months[d.getMonth()];
+  let fulldate = d.getDate() + ' ' + month + ' ' + d.getFullYear();
+  var doc = new jspdf.jsPDF()
 
-    doc.setFontSize(18)
-    doc.text('Laporan Pelanggan', 110, 10, 'center')
-    doc.autoTable({
-      html: '#printTable'
-    })
+  doc.setFontSize(17)
+  doc.text('LAPORAN PELANGGAN', 110, 10, 'center')
+  doc.text('TOKO FAUZAN MEUBLE', 110, 16, 'center')
+  doc.setFontSize(12)
+  doc.text('Desa Arpal, Kecamatan Arungkeke, Kab. Jeneponto', 110, 20, 'center')
+  doc.text('Sulawesi Selatan', 110, 25, 'center')
+  doc.autoTable({
+    html: '#printTable',
+    margin: {
+      top: 30
+    },
+    'autoPaging': 'text'
+  });
 
-    var finalY = doc.lastAutoTable.finalY
-    doc.setFontSize(12)
-    doc.text('Jeneponto, ' + fulldate, 140, finalY + 2)
-    doc.text('Admin', 140, finalY + 15)
+  var finalY = doc.lastAutoTable.finalY
+  doc.setFontSize(12)
+  doc.text('Jeneponto, ' + fulldate, 140, finalY + 20)
+  doc.text('Admin', 140, finalY + 35)
 
-    doc.save('laporan_pelanggan.pdf')
-  }
+  doc.save('laporan_pelanggan.pdf')
+}
 </script>
 <?= $this->endSection(); ?>

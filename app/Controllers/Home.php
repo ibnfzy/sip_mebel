@@ -66,10 +66,41 @@ class Home extends BaseController
 
     public function add_item()
     {
-        // $get = $this->itemModel->find($this->request->getPost('id'));
+
         $get = $this->db->table('item')->where('id_item', $this->request->getPost('id'))->get()->getRowArray();
 
-        // dd($this->request->getPost('id'));
+        $idArr = [];
+        $idArr[] = $get['id_item'];
+
+        session()->set('diskon', 0);
+        session()->set('type_reward', 'diskon');
+        session()->set('id_barang_diskon', '');
+        session()->set('id_barang', $idArr);
+
+        switch ($this->cart->totalItems()) {
+            case 0:
+                session()->set('type_reward', 'diskon');
+                session()->set('diskon', 5);
+                break;
+
+            case 1:
+                session()->set('type_reward', 'diskon');
+                session()->set('diskon', 10);
+                break;
+
+            default:
+                session()->set('diskon', 0);
+                session()->set('id_barang_diskon', '');
+                session()->set('type_reward', 'Free Meja');
+                break;
+        }
+
+        if (session()->get('type_reward') == 'diskon') {
+            $arr = (array) session()->get('id_barang');
+            $key = array_rand($arr);
+            $getId = $arr[$key];
+            session()->set('id_barang_diskon', $getId);
+        }
 
         $this->cart->insert([
             'id' => $get['id_item'],
